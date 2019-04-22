@@ -10,8 +10,8 @@ set $right l
 
 set $term alacritty
 
-set $exit_icon 
-set $resize_icon 
+set $exit_icon 
+set $resize_icon 
 
 # time in seconds
 set $black_after 1200
@@ -25,10 +25,6 @@ set $red #f44336
 
 set $primary_font Hack
 set $title_font_size 10
-
-set $bar_font Ubuntu Mono
-set $bar_icon_font LineAwesome
-set $bar_font_size 12
 
 set $wallpaper ~/Pictures
 set $locker ~/.config/sway/swaylock.sh
@@ -125,7 +121,7 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-s
 bindsym XF86AudioLowerVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
-# Sreen brightness controls
+# Screen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 7
 bindsym XF86MonBrightnessDown exec light -U 7
 
@@ -176,33 +172,7 @@ bindsym $mod+d exec "rofi -show drun"
 font pango:$primary_font $title_font_size
 
 bar {
-    font pango:$bar_font, $bar_icon_font $bar_font_size
-    position top
-    # tray_output none
-    status_command bumblebee-status \
-        -t ~/.config/bumblebee-status/my-theme-dark.json\
-        -m traffic nic pasink disk memory cpu datetime battery\
-        -p interval=2.5 \
-        traffic.exclude="lo,virbr,docker,vboxnet,veth,br-"\
-        traffic.states=^down\
-        traffic.showname=false\
-        nic.exclude="lo,virbr,docker,vboxnet,veth,br-"\
-        nic.states=^down nic.format='{ssid}' \
-        disk.format='{percent:0>2.0f}%' disk.path=/home \
-        cpu.format='{:0>2.0f}%' \
-        memory.format='{percent:0>2.0f}%' \
-        datetime.format="%a, %d %b %H:%M" \
-        battery.showremaining=true
-
-
-    colors {
-        background $white
-        focused_workspace  $blue    $blue   $white
-        active_workspace   $white   $white  $gray
-        inactive_workspace $white   $white  $gray
-        urgent_workspace   $red     $red    $white
-        binding_mode       $red     $red    $white
-    }
+    swaybar_command waybar
 }
 
 # class                 border  bground text    indicator child_border

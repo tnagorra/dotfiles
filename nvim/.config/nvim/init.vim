@@ -220,7 +220,7 @@ let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 let g:rg_command = '
   \ rg --column --line-number --no-heading --case-sensitive
   \ --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,jsx,ts,tsx,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,scss,css,html}"
+  \ -g "*.{svg,js,jsx,ts,tsx,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,scss,css,html}"
   \ -g "!{.git,coverage,node_modules,vendor,.cache,public,generated,android,ios,__pycache__}/*" '
 command! -bang -nargs=* RgWord call fzf#vim#grep(
   \ g:rg_command .shellescape(expand('<cword>')), 1, <bang>0
