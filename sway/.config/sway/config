@@ -26,9 +26,10 @@ set $red #f44336
 set $primary_font Hack
 set $title_font_size 10
 
-set $wallpaper ~/Pictures
+set $wallpaper ~/Pictures/dark*
 set $locker ~/.config/sway/swaylock.sh
-set $vol_sink 0
+# set $vol_sink 0
+set $vol_sink $(pactl list short sinks | grep RUNNING | cut -f1)
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod normal
@@ -108,22 +109,22 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Return exec $term
 
 # start filemanager
-bindsym $mod+Shift+Return exec nautilus
+bindsym $mod+Shift+Return exec caja
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
 # Screenshot
 bindsym Print exec grim -g "$(slurp)" $HOME/grim_$(date +'%Y-%m-%d-%H%M%S.png')
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-sink-volume $vol_sink +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-sink-volume $vol_sink -2%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 7
-bindsym XF86MonBrightnessDown exec light -U 7
+bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -dec 10
 
 # Media player controls
 bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
@@ -192,6 +193,7 @@ focus_follows_mouse no
 # Assign programs to workspace
 # assign [class="Gitg"] 9
 # assign [class="Slack"] 10
+for_window [class="keepassxc"] floating enable
 
 # Hide borders when only one window is present
 hide_edge_borders smart
@@ -209,6 +211,7 @@ gaps inner 4
 gaps outer 4
 
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
+bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
 
 # Start notification daemon
 exec --no-startup-id mako
@@ -216,9 +219,9 @@ exec --no-startup-id mako
 # Set theme in gsettings
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
-    gsettings set $gnome-schema gtk-theme 'Flat-Remix-GTK-Darker'
-    gsettings set $gnome-schema icon-theme Flat-Remix-Light''
-    gsettings set $gnome-schema cursor-theme 'Adwaita'
+    gsettings set $gnome-schema gtk-theme 'Breeze'
+    gsettings set $gnome-schema icon-theme 'Breeze'
+    gsettings set $gnome-schema cursor-theme 'Breeze'
 }
 
 # Turn off screen and Sleep after certain timeout

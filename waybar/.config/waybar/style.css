@@ -1,3 +1,15 @@
+@define-color background rgba(43, 48, 59, 0.8);
+
+@define-color primary #2195f2;
+@define-color primary-light #6ec6ff;
+@define-color primary-dark #0068bf;
+
+@define-color success #aed581;
+@define-color danger #f53c3c;
+
+@define-color white #ffffff;
+@define-color gray #cbcbcb;
+
 @keyframes blink {
     to {
         background-color: transparent;
@@ -13,8 +25,8 @@
 }
 
 window#waybar {
-    background: rgba(43, 48, 59, 0.8);
-    color: #ffffff;
+    background: @background;
+    color: @white;
 }
 
 #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #idle_inhibitor {
@@ -22,31 +34,39 @@ window#waybar {
     margin: 0 0 0 12px;
 }
 
+#window {
+    color: @gray;
+}
+
 #mode {
-    background-color: #64727D;
+    background-color: @danger;
 }
 
 #workspaces button {
-    border-top: 3px solid transparent;
-    padding: 0 2px;
+    border-top: 2px solid transparent;
+    padding: 0 6px;
     background-color: transparent;
-    color: #ffffff;
+    color: @white;
 }
 #workspaces button.focused {
-    border-top: 3px solid #ffffff;
-    background-color: #64727D;
+    border-top: 2px solid @white;
+    background-color: @primary;
 }
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: @danger;
 }
 
 #battery.charging {
-    background-color: #7cb342;
+    background-color: @success;
+}
+
+#battery.warning:not(.charging) {
+    color: @danger;
+    background-color: transparent;
 }
 
 #battery.critical:not(.charging) {
-    background: #f53c3c;
-    color: #ffffff;
+    background-color: @danger;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -55,21 +75,21 @@ window#waybar {
 }
 
 #network {
-    color: #aed581;
+    color: @success;
 }
 
 #clock {
-    color: #80deea;
+    color: @primary-light;
 }
 
 #network.disconnected {
-    color: #ef9a9a;
+    color: @danger;
 }
 
 #pulseaudio.muted {
-    color: #ef9a9a;
+    color: @danger;
 }
 
 #idle_inhibitor.activated {
-    background-color: #7cb342;
+    background-color: @success;
 }

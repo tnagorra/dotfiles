@@ -7,7 +7,7 @@ rofi.lines:                          10
 ! "Number of columns" Set from: Default
 ! rofi.columns:                        1
 ! "Font to use" Set from: Default
-rofi.font:                           M+ 1m 12
+rofi.font:                           Hack 12
 ! "Border width" Set from: Default
 ! rofi.bw:                             1
 ! "Location on screen" Set from: Default
@@ -21,7 +21,7 @@ rofi.padding:                        10
 ! "Always show number of lines" Set from: Default
 ! rofi.fixed-num-lines:                true
 ! "Terminal to use" Set from: Default
-rofi.terminal:                       termite
+rofi.terminal:                       alacritty
 ! "Ssh client to use" Set from: Default
 ! rofi.ssh-client:                     ssh
 ! "Ssh command to execute" Set from: Default
@@ -213,3 +213,4 @@ rofi.show-match:                     false
 ! "The display name of this browser" Set from: Default
 ! rofi.display-combi:                  
 rofi.theme: /usr/share/rofi/themes/android_notification.rasi
+rofi.show-icons: true

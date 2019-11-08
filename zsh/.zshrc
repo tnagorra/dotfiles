@@ -5,7 +5,7 @@ export ZSH=/home/pandaman/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="gallifrey"
+ZSH_THEME="tjkirch"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -69,7 +69,7 @@ plugins=( \
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin"
 export PATH=${PATH}:${HOME}/.bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -109,7 +109,7 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 # Enable fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg -i --files --no-ignore --follow --hidden -g "!{.git,node_modules,coverage,.cache,android,ios}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND="rg -i --files --no-ignore --follow --hidden -g '!{.git,node_modules,coverage,.cache,android,ios,__pycache__}' 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Enable ssh-agent
@@ -125,6 +125,7 @@ export GDK_BACKEND=wayland
 export QT_QPA_PLATFORM=wayland
 export CLUTTER_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1 # enable wayland on mozilla firefox
 
 # Java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
@@ -134,7 +135,20 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # Custom alias
-alias day='base16_gruvbox-light-hard'
-alias night='base16_gruvbox-dark-hard'
+alias day0='base16_gruvbox-light-hard'
+alias night0='base16_gruvbox-dark-hard'
+
+alias day1='base16_solarized-light'
+alias night1='base16_solarized-dark'
+
+alias day2='base16_tomorrow'
+alias night2='base16_tomorrow-night'
+
 alias vim="nvim"
 alias chromium='chromium --disk-cache-dir=/tmp/cache'
+
+export TERM=xterm-256color
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
