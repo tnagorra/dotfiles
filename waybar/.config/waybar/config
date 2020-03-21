@@ -34,7 +34,8 @@
         "interface": "wlp2s0", // (Optional)
         "format-wifi": " {essid}",
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
-        "format-disconnected": "No network"
+        "format-disconnected": "No network",
+        "interval": 3
     },
     "pulseaudio": {
         "scroll-step": 2,

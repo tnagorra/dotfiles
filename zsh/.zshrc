@@ -131,18 +131,29 @@ export MOZ_ENABLE_WAYLAND=1 # enable wayland on mozilla firefox
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 
 # Colorscheme installation from https://github.com/chriskempson/base16-shell
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
+
+function reload_nvim {
+    for SERVER in $(nvr --serverlist); do
+        # nvr --remote-send '<ESC>,r' --servername $SERVER &
+        nvr --nostart -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
+    done
+}
+
+COLOR_DIR="~/.aaron-williamson-alacritty-theme/colors"
+LIGHT_COLOR='base16-gruvbox-light-soft.yml'
+DARK_COLOR='base16-gruvbox-dark-soft.yml'
+
+SOFT_DARK_COLOR='base16-spacemacs.yml'
+SOFT_LIGHT_COLOR='base16-cupertino.yml'
 # Custom alias
-alias day0='base16_gruvbox-light-hard'
-alias night0='base16_gruvbox-dark-hard'
+alias day="alacritty-colorscheme -C $COLOR_DIR -a $LIGHT_COLOR -V && reload_nvim"
+alias night="alacritty-colorscheme -C $COLOR_DIR -a $DARK_COLOR -V && reload_nvim"
 
-alias day1='base16_solarized-light'
-alias night1='base16_solarized-dark'
-
-alias day2='base16_tomorrow'
-alias night2='base16_tomorrow-night'
+alias softday="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_LIGHT_COLOR -V && reload_nvim"
+alias softnight="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_DARK_COLOR -V && reload_nvim"
 
 alias vim="nvim"
 alias chromium='chromium --disk-cache-dir=/tmp/cache'

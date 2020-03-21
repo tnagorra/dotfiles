@@ -53,6 +53,7 @@ let g:ale_linters = {
     \ 'vim': ['vint'],
     \ 'typescript': ['tsserver', 'tslint', 'eslint'],
     \ 'typescript.tsx': ['tsserver', 'tslint', 'eslint'],
+    \ 'typescriptreact': ['tsserver', 'tslint', 'eslint'],
     \ 'javascript': ['eslint'],
     \ 'javascript.jsx': ['eslint'],
     \ 'python': ['flake8'],
@@ -67,16 +68,17 @@ let g:ale_fixers = {
     \ 'css': ['stylelint'],
     \ 'typescript': ['tsserver', 'tslint', 'eslint'],
     \ 'typescript.tsx': ['tsserver', 'tslint', 'eslint'],
+    \ 'typescriptreact': ['tsserver', 'tslint', 'eslint'],
     \ 'javascript.jsx': ['eslint'],
     \ 'javascript': ['eslint'],
     \ }
 
 " PLUGIN Denite
 
-call denite#custom#var('file/rec', 'command', ['rg', '--smart-case', '--follow', '--no-ignore', '--hidden', '--files', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build}'])
+call denite#custom#var('file/rec', 'command', ['rg', '--smart-case', '--follow', '--no-ignore', '--hidden', '--files', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build,generated}'])
 
 call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['--smart-case', '--follow', '--no-ignore', '--hidden', '--vimgrep', '--heading', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build}'])
+call denite#custom#var('grep', 'default_opts', ['--smart-case', '--follow', '--no-ignore', '--hidden', '--vimgrep', '--heading', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build,generated}'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
@@ -120,9 +122,12 @@ function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <C-q> denite#do_map('do_action', 'quickfix')
 endfunction
 
-map <leader>f :DeniteProjectDir file/rec<CR>
-map <leader>b :DeniteProjectDir buffer<CR>
-map <leader>F :DeniteProjectDir grep<CR>
+" map <leader>f :DeniteProjectDir file/rec<CR>
+" map <leader>b :DeniteProjectDir buffer<CR>
+" map <leader>F :DeniteProjectDir grep<CR>
+map <leader>f :Denite file/rec<CR>
+map <leader>b :Denite buffer<CR>
+map <leader>F :Denite grep<CR>
 
 " PLUG coc
 
@@ -139,4 +144,13 @@ map <leader>F :DeniteProjectDir grep<CR>
 " let g:livedown_port = 8099
 " let g:livedown_browser = "firefox-developer-edition"
 
-let g:notes_directories = ['~/Documents/Note']
+" let g:notes_directories = ['~/Documents/Note']
+
+" call nvim_lsp#setup("tsserver", {})
+" autocmd Filetype typescript, typescript.tsx, typescriptreact set omnifunc=lsp#omnifunc
+" nnoremap <silent> ;dc :call lsp#text_document_declaration()<CR>
+" nnoremap <silent> ;df :call lsp#text_document_definition()<CR>
+" nnoremap <silent> ;h  :call lsp#text_document_hover()<CR>
+" nnoremap <silent> ;i  :call lsp#text_document_implementation()<CR>
+" nnoremap <silent> ;s  :call lsp#text_document_signature_help()<CR>
+" nnoremap <silent> ;td :call lsp#text_document_type_definition()<CR>

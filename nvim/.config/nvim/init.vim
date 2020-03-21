@@ -74,14 +74,13 @@ set wildignore=*.o,*.obj,*/.git/*,*/node_modules,*/coverage/,*/bower_components,
 set wildignorecase                                  " Ignore case when completing file names
 set foldtext=MyFoldText()
 
+set diffopt+=internal,algorithm:patience
+
 " MAPPINGS
 
 " Map leader to ,
 let mapleader = ','
 let maplocalleader = '\\'
-
-" For when you forget to sudo
-" cnoremap w!! w !sudo tee % >/dev/null
 
 " Change working directory to that of the current file
 cnoremap cd. cd %:p:h

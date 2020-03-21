@@ -5,7 +5,7 @@ Plug 'lambdalisue/suda.vim'
 " VISUAL
 
 Plug 'chriskempson/base16-vim'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 Plug 'kamykn/spelunker.vim'
 
 " GIT
@@ -21,19 +21,13 @@ Plug 'AndrewRadev/qftools.vim'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/denite.nvim'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 
 " LANGUAGE SUPPORT
 
+Plug 'Chiel92/vim-autoformat'
 Plug 'sheerun/vim-polyglot'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'w0rp/ale'
-
-" OTHER
-
-" Plug 'shime/vim-livedown'
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neovim/nvim-lsp'
 
 call plug#end()

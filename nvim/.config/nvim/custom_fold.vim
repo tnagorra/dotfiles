@@ -16,6 +16,7 @@ endfunction " }}}
 
 augroup fold_color
     autocmd!
-    autocmd ColorScheme * highlight Folded guibg=NONE ctermbg=NONE cterm=italic
+    autocmd ColorScheme * highlight Folded guibg=NONE gui=italic
+    autocmd ColorScheme * highlight Comment gui=italic
 augroup END
 
