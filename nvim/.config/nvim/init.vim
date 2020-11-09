@@ -12,6 +12,8 @@ set lazyredraw                                      " Don't draw while executing
 set hidden                                          " Don't unload a buffer when no longer show in window
 set foldlevel=99
 set foldmethod=indent                               " Set type of fold (syntax, indent)
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
 set nospell                                         " Enable spell correction
 set scroll=11                                       " Number of lines to scroll for Ctrl-U and Ctrl-D
 set scrolloff=5                                     " Minimal number of screen lines to keep above/below the cursor.

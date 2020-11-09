@@ -156,7 +156,8 @@ alias softday="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_LIGHT_COLOR -V && re
 alias softnight="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_DARK_COLOR -V && reload_nvim"
 
 alias vim="nvim"
-alias chromium='chromium --disk-cache-dir=/tmp/cache'
+alias def="sdcv"
+# alias chromium='chromium --disk-cache-dir=/tmp/cache'
 
 export TERM=xterm-256color
 

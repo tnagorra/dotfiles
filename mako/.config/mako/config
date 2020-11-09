@@ -1,0 +1,5 @@
+max-visible=5
+sort=-time
+anchor=bottom-right
+border-size=8
+default-timeout=8000

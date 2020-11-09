@@ -1,4 +1,5 @@
 # i3 config file (v4)
+# vi: ft=i3config
 
 # Set modifier key
 set $mod Mod4
@@ -115,8 +116,9 @@ bindsym $mod+Shift+Return exec caja
 bindsym $mod+Shift+r reload
 
 # Screenshot
-bindsym Print exec grim -g "$(slurp)" $HOME/grim_$(date +'%Y-%m-%d-%H%M%S.png')
-# bindsym Shift+Print exec "sleep 5s && grim -g $(slurp) $HOME/grim_$(date +'%Y-%m-%d-%H%M%S.png')"
+bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+bindsym Shift+Print exec sleep 5s && grim -g "$(slurp -d)" - | wl-copy
+bindsym $mod+Print exec grim -g "$(slurp -d)" $HOME/grim_$(date +'%Y-%m-%d-%H%M%S.png')
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
@@ -124,8 +126,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -perceived -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -perceived -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -perceived -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -perceived -dec 5
 
 # Media player controls
 bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
@@ -197,6 +199,8 @@ focus_follows_mouse no
 # assign [class="Gitg"] 9
 # assign [class="Slack"] 10
 for_window [class="KeePassXC"] floating enable
+for_window [title="VLSub 0.11.1"] floating enable
+for_window [class="Thunderbird" instance="Calendar"] floating enable
 
 # Hide borders when only one window is present
 hide_edge_borders smart
@@ -221,6 +225,7 @@ exec --no-startup-id mako
 
 # Set theme in gsettings
 set $gnome-schema org.gnome.desktop.interface
+
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Breeze'
     gsettings set $gnome-schema icon-theme 'Breeze'
@@ -231,9 +236,11 @@ exec_always {
 exec swayidle \
     timeout $black_after 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
     timeout $lock_after 'systemctl suspend, mode default' \
-    before-sleep $locker \
+    before-sleep $locker
 
 # Enable tap on click for touchpad
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
 }
+
+exec --no-startup-id wl-gammactl -c 1.000 -b 1.012 -g 0.750

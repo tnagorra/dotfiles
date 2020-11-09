@@ -7,10 +7,6 @@ let g:loaded_netrwPlugin = 1
 
 let g:suda_smart_edit = 1
 
-" PLUGIN Yggdroot/indentLine
-
-let g:indentLine_char = '▏'
-
 " PLUGIN kamykn/spelunker.vim
 let g:enable_spelunker_vim = 1
 let g:spelunker_target_min_char_len = 3
@@ -35,7 +31,77 @@ nnoremap <leader>e :call dirvish#open(getcwd()) <cr>
 " Open file manager in current file's directory
 nnoremap <leader>E :Dirvish % <cr>
 
-" PLUGIN w0rp/ale
+" PLUGIN treesitter
+" :lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "all",     -- one of "all", "language", or a list of languages
+"   highlight = {
+"     enable = true,              -- false will disable the whole extension
+"   },
+"   refactor = {
+"     highlight_definitions = { enable = true },
+"   },
+" }
+" EOF
+
+" PLUGIN nvim-lsp
+" :lua << END
+"   require'nvim_lsp'.bashls.setup{}
+"   require'nvim_lsp'.dockerls.setup{}
+"   require'nvim_lsp'.tsserver.setup{}
+"   require'nvim_lsp'.vimls.setup{}
+"   require'nvim_lsp'.cssls.setup{}
+" END
+
+" function! SetOptions() " {{{
+"     setlocal omnifunc=v:lua.vim.lsp.omnifunc
+"     nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+"     nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+"     nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+"     nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+"     nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+"     nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"     nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+"     nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+"     nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" endfunction " }}}
+
+" augroup nvimlsp
+"     autocmd!
+"     autocmd FileType typescriptreact call SetOptions()
+"     autocmd FileType typescript call SetOptions()
+"     autocmd FileType typescript.tsx call SetOptions()
+"     autocmd FileType javascriptreact call SetOptions()
+"     autocmd FileType javascript call SetOptions()
+"     autocmd FileType javascript.tsx call SetOptions()
+"
+"     autocmd FileType vim call SetOptions()
+"     autocmd FileType sh call SetOptions()
+"     autocmd FileType dockerfile call SetOptions()
+"
+"     autocmd FileType css call SetOptions()
+" augroup END
+
+" Fzf related bindings
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :Rg 
+
+" CTRL-A CTRL-Q to select all and build quickfix list
+function! s:build_quickfix_list(lines)
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'), 'r', { 'title': 'My search' })
+    copen
+    cc
+endfunction
+
+" FZF
+let g:fzf_action = {
+    \ 'ctrl-q': function('s:build_quickfix_list'),
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \ }
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+
 
 let g:ale_completion_enabled = 1
 let g:ale_lint_delay = 200 " ms
@@ -46,19 +112,21 @@ let g:ale_linters_explicit = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '> '
+let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_linters = {
     \ 'c': ['cppcheck', 'clangtidy'],
     \ 'cpp': ['cppcheck', 'clangtidy'],
     \ 'vim': ['vint'],
-    \ 'typescript': ['tsserver', 'tslint', 'eslint'],
-    \ 'typescript.tsx': ['tsserver', 'tslint', 'eslint'],
-    \ 'typescriptreact': ['tsserver', 'tslint', 'eslint'],
-    \ 'javascript': ['eslint'],
-    \ 'javascript.jsx': ['eslint'],
     \ 'python': ['flake8'],
     \ 'scss': ['stylelint'],
-    \ 'css': ['stylelint']
+    \ 'css': ['stylelint'],
+    \ 'javascript': ['eslint'],
+    \ 'javascript.jsx': ['eslint'],
+    \ 'javascriptreact': ['eslint'],
+    \ 'typescript': ['eslint', 'tsserver'],
+    \ 'typescript.tsx': ['eslint', 'tsserver'],
+    \ 'typescriptreact': ['eslint', 'tsserver'],
     \ }
 let g:ale_fixers = {
     \ 'c': ['clang-format'],
@@ -66,91 +134,10 @@ let g:ale_fixers = {
     \ 'vim': ['vint'],
     \ 'scss': ['stylelint'],
     \ 'css': ['stylelint'],
-    \ 'typescript': ['tsserver', 'tslint', 'eslint'],
-    \ 'typescript.tsx': ['tsserver', 'tslint', 'eslint'],
-    \ 'typescriptreact': ['tsserver', 'tslint', 'eslint'],
-    \ 'javascript.jsx': ['eslint'],
     \ 'javascript': ['eslint'],
+    \ 'javascript.jsx': ['eslint'],
+    \ 'javascriptreact': ['eslint'],
+    \ 'typescript': ['eslint'],
+    \ 'typescript.tsx': ['eslint'],
+    \ 'typescriptreact': ['eslint'],
     \ }
-
-" PLUGIN Denite
-
-call denite#custom#var('file/rec', 'command', ['rg', '--smart-case', '--follow', '--no-ignore', '--hidden', '--files', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build,generated}'])
-
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['--smart-case', '--follow', '--no-ignore', '--hidden', '--vimgrep', '--heading', '--glob', '!{.git,node_modules,coverage,.cache,android,ios,__pycache__,build,generated}'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
-call denite#custom#var('buffer', 'date_format', '')
-
-call denite#custom#option('_', {
-    \ 'split': 'floating',
-    \ 'auto_resize': 1,
-    \ 'start_filter': 1,
-    \ 'prompt': 'λ ',
-    \ 'cur_pos': 0,
-    \ 'reversed': 1,
-    \ 'statusline': 0,
-    \ 'highlight_matched_char': 'Underlined',
-    \ })
-
-autocmd FileType denite-filter call s:denite_filter_my_settings()
-function! s:denite_filter_my_settings() abort
-    inoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-
-    inoremap <silent><buffer><expr> <CR> denite#do_map('do_action', 'open')
-
-    imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
-endfunction
-
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-    nnoremap <silent><buffer><expr> <Esc> denite#do_map('quit')
-    nnoremap <silent><buffer><expr> <C-o> denite#do_map('open_filter_buffer')
-
-    nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-    nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-    nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-
-    nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-    nnoremap <silent><buffer><expr> <C-Space> denite#do_map('toggle_select_all')
-
-    nnoremap <silent><buffer><expr> <C-q> denite#do_map('do_action', 'quickfix')
-endfunction
-
-" map <leader>f :DeniteProjectDir file/rec<CR>
-" map <leader>b :DeniteProjectDir buffer<CR>
-" map <leader>F :DeniteProjectDir grep<CR>
-map <leader>f :Denite file/rec<CR>
-map <leader>b :Denite buffer<CR>
-map <leader>F :Denite grep<CR>
-
-" PLUG coc
-
-" nmap <silent> <leader>td <Plug>(coc-type-definition)
-" nmap <silent> <leader>df <Plug>(coc-definition)
-" nmap <silent> <leader>dc <Plug>(coc-declaration)
-" nmap <silent> <leader>re <Plug>(coc-references)
-" nmap <silent> <leader>im <Plug>(coc-implementation)
-" nmap <silent> <leader>mv <Plug>(coc-rename)
-
-" should markdown preview get shown automatically upon opening markdown buffer
-" let g:livedown_autorun = 1
-" let g:livedown_open = 1
-" let g:livedown_port = 8099
-" let g:livedown_browser = "firefox-developer-edition"
-
-" let g:notes_directories = ['~/Documents/Note']
-
-" call nvim_lsp#setup("tsserver", {})
-" autocmd Filetype typescript, typescript.tsx, typescriptreact set omnifunc=lsp#omnifunc
-" nnoremap <silent> ;dc :call lsp#text_document_declaration()<CR>
-" nnoremap <silent> ;df :call lsp#text_document_definition()<CR>
-" nnoremap <silent> ;h  :call lsp#text_document_hover()<CR>
-" nnoremap <silent> ;i  :call lsp#text_document_implementation()<CR>
-" nnoremap <silent> ;s  :call lsp#text_document_signature_help()<CR>
-" nnoremap <silent> ;td :call lsp#text_document_type_definition()<CR>
