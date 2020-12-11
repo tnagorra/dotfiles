@@ -220,6 +220,10 @@ gaps outer 4
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
 
+bindsym $mod+o exec wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+bindsym $mod+Ctrl+o exec wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+bindsym $mod+Shift+o exec pkill wf-recorder --signal SIGINT
+
 # Start notification daemon
 exec --no-startup-id mako
 
@@ -244,3 +248,4 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 }
 
 exec --no-startup-id wl-gammactl -c 1.000 -b 1.012 -g 0.750
+exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled

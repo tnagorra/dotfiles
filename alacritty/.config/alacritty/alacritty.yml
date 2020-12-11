@@ -309,7 +309,7 @@ key_bindings:
   - {key: Insert, mods: Shift, action: PasteSelection}
   - {key: Key0, mods: Control, action: ResetFontSize}
   - {key: Equals, mods: Control, action: IncreaseFontSize}
-  - {key: Subtract, mods: Control, action: DecreaseFontSize}
+  - {key: NumpadSubtract, mods: Control, action: DecreaseFontSize}
   - {key: Home, chars: "\eOH", mode: AppCursor}
   - {key: Home, chars: "\e[H", mode: ~AppCursor}
   - {key: End, chars: "\eOF", mode: AppCursor}
@@ -405,6 +405,7 @@ key_bindings:
   - {key: F10, mods: Super, chars: "\e[21;3~"}
   - {key: F11, mods: Super, chars: "\e[23;3~"}
   - {key: F12, mods: Super, chars: "\e[24;3~"}
+
 colors:
   # COLORSCHEME: base16-gruvbox-light-hard.yml
   # Default colors
