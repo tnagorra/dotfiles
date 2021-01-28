@@ -36,7 +36,8 @@
     },
     "network": {
         // "interface": "auto", // (Optional)
-        "format-wifi": " {signalStrength}dBm {essid}",
+        "format-wifi": " {signalStrength}dBm {ipaddr}",
+        // "format-wifi": " {signalStrength}dBm {essid}",
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
         "format-linked": "No IP address",
         "format-disconnected": "No network",
@@ -73,7 +74,7 @@
     },
     "clock": {
         "tooltip-format": "{:%Y-%m-%d | %H:%M}",
-        "format-alt": "{:%Y-%m-%d}",
+        "format-alt": "{:%Y-%m-%d %H:%M}",
         "format": "{:%h %d %a %H:%M}"
     },
     "battery": {

@@ -220,9 +220,18 @@ gaps outer 4
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
 
-bindsym $mod+o exec wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-bindsym $mod+Ctrl+o exec wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-bindsym $mod+Shift+o exec pkill wf-recorder --signal SIGINT
+set $sound_dir "/usr/share/sounds/freedesktop/stereo"
+
+bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
+
+set $light_color base16-gruvbox-light-soft.yml
+set $dark_color base16-gruvbox-dark-soft.yml
+
+# Toggle between light and dark colorschemes
+bindsym $mod+Shift+c exec alacritty-colorscheme -V toggle base16-gruvbox-light-hard.yml base16-gruvbox-dark-soft.yml \
+    && notify-send "Colorscheme" `alacritty-colorscheme status`
 
 # Start notification daemon
 exec --no-startup-id mako

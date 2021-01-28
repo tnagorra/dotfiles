@@ -72,7 +72,7 @@ set iskeyword-=.                                    " '.' is an end of word desi
 set list                                            " Useful to see difference between tab and space
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.      " Highlight problematic whitespace
 set wildmode=list:longest                           " Specifies how command line completion works
-set wildignore=*.o,*.obj,*/.git/*,*/node_modules,*/coverage/,*/bower_components,*/dist,__pycache__,env " List of file patterns ignored while expanding wildcards
+set wildignore=*.o,*.obj,*/.git/*,*/node_modules,*/coverage/,*/bower_components,*/dist,__pycache__,env,*.lock " List of file patterns ignored while expanding wildcards
 set wildignorecase                                  " Ignore case when completing file names
 set foldtext=MyFoldText()
 

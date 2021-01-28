@@ -79,7 +79,12 @@ export TERM=xterm-256color
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin"
 
 # Java
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djbre.popupwindow.settype=false'
+
+# Android
+export ANDROID_HOME=${HOME}/Android/Sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 # Qt
 export QT_QPA_PLATFORMTHEME=gnome
@@ -95,30 +100,21 @@ fi
 
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND="rg -i --files --no-ignore --follow --hidden -g '!{.git,node_modules,coverage,.cache,android,ios,__pycache__}' 2> /dev/null"
+export FZF_DEFAULT_COMMAND="rg -i --files --no-ignore-vcs --follow --hidden 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-function reload_nvim {
-    for SERVER in $(nvr --serverlist); do
-        # nvr --remote-send '<ESC>,r' --servername $SERVER &
-        nvr --nostart -cc "source ~/.config/nvim/init.vim" --servername $SERVER &
-    done
-}
-
 # ALIAS
-COLOR_DIR="~/.aaron-williamson-alacritty-theme/colors"
-LIGHT_COLOR='base16-gruvbox-light-hard.yml'
-DARK_COLOR='base16-gruvbox-dark-soft.yml'
-SOFT_DARK_COLOR='base16-spacemacs.yml'
-SOFT_LIGHT_COLOR='base16-cupertino.yml'
-alias next="alacritty-colorscheme -C $COLOR_DIR -T -V && reload_nvim"
-alias prev="alacritty-colorscheme -C $COLOR_DIR -T -r -V && reload_nvim"
-alias cur="alacritty-colorscheme -C $COLOR_DIR -s"
-alias day="alacritty-colorscheme -C $COLOR_DIR -a $LIGHT_COLOR -V && reload_nvim"
-alias night="alacritty-colorscheme -C $COLOR_DIR -a $DARK_COLOR -V && reload_nvim"
-alias softday="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_LIGHT_COLOR -V && reload_nvim"
-alias softnight="alacritty-colorscheme -C $COLOR_DIR -a $SOFT_DARK_COLOR -V && reload_nvim"
+alias next="alacritty-colorscheme -V toggle"
+alias prev="alacritty-colorscheme -V toggle --reverse"
+alias day="alacritty-colorscheme -V apply base16-gruvbox-light-hard.yml"
+alias night="alacritty-colorscheme -V apply base16-gruvbox-dark-soft.yml"
+alias softday="alacritty-colorscheme -V apply base16-cupertino.yml"
+alias softnight="alacritty-colorscheme -V apply base16-spacemacs.yml"
 
 alias vim="nvim"
 alias def="sdcv"
 alias ls="ls --color"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/zsh_completion" ] && \. "$NVM_DIR/zsh_completion"  # This loads nvm zsh_completion
