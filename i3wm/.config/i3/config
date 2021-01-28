@@ -1,31 +1,48 @@
-# i3 config file (v4)
+# vim: filetype=i3config
 
-# Set modifier key
 set $mod Mod4
 
-set $exit 
-set $resize 
+set $resize resize
+set $exit exit
 
-# time in minutes
-set $sleep_after 15
 set $primary_font Hack
 set $title_font_size 10
 
-set $bar_font Noto Sans Mono
+set $bar_font Anonymous Pro
 set $bar_icon_font LineAwesome
-set $bar_font_size 11
+set $bar_font_size 12
 
-set $wallpaper ~/Pictures/images/wallpapers
+set $wallpaper ~/Pictures/wallpapers
 set $locker ~/.config/i3/i3lock.sh
-set $splash ~/.bin/splash
-# set $polybar_launcher ~/.config/polybar/launch.sh
-set $vol_sink 0
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:$primary_font $title_font_size
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Media player controls
+bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
+bindsym $mod+Down exec playerctl play-pause     # XF86AudioPause
+bindsym $mod+Right exec playerctl next          # XF86AudioNext
+bindsym $mod+Left exec playerctl previous       # XF86AudioPrev
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# kill focused window
-bindsym $mod+q kill
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# start file manager
+bindsym $mod+Shift+Return exec caja
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec rofi -show drun
 
 # change focus
 bindsym $mod+h focus left
@@ -43,14 +60,19 @@ bindsym $mod+Shift+l move right
 bindsym $mod+Ctrl+h move workspace to output left
 bindsym $mod+Ctrl+l move workspace to output right
 
-# split in horizontal and vertical orientation
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# split in horizontal orientation
 bindsym $mod+b split h
+
+# split in vertical orientation
 bindsym $mod+v split v
 
-# enter fullscreen mgode for the focused container
+# enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# change container layout (stacked, +tabbed, toggle split)
+# change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
@@ -63,74 +85,69 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+p focus parent
+
 # focus the child container
 bindsym $mod+shift+p focus child
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
+
 # Show the next scratchpad window or hide the focused scratchpad window.
 bindsym $mod+minus scratchpad show
 
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# move focused container to workspace and switch
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-
-# start terminal
-bindsym $mod+Return exec kitty
-
-# start filemanager
-bindsym $mod+Shift+Return exec nautilus
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
+# Random wallpaper binding
+bindsym $mod+Shift+w exec feh --randomize --bg-fill $wallpaper
 
 # Set screenshot program to ScreenEat
 bindsym Print exec screen-eat
 bindsym Shift+Print exec screen-eat --active
 bindsym --release $mod+Print exec screen-eat --cropped
-
 bindsym Ctrl+Print exec sleep 2 && screen-eat
 bindsym Ctrl+Shift+Print exec sleep 2 && screen-eat --active
 bindsym --release Ctrl+$mod+Print exec sleep 2 && screen-eat --cropped
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-sink-volume $vol_sink +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-mute $vol_sink 0 && pactl set-sink-volume $vol_sink -2%
-bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 7 && \
-dunstify "Brightness" -h "int:value:`xbacklight -get`" -r 2112
-bindsym XF86MonBrightnessDown exec xbacklight -dec 7 && \
-dunstify "Brightness" -h "int:value:`xbacklight -get`" -r 2112
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 
-# Media player controls
-bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
-bindsym $mod+Down exec playerctl play-pause     # XF86AudioPause
-bindsym $mod+Right exec playerctl next          # XF86AudioNext
-bindsym $mod+Left exec playerctl previous       # XF86AudioPrev
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # resize window (you can also use the mouse for that)
 mode $resize {
@@ -161,60 +178,47 @@ mode $exit {
         bindsym l exec $locker, mode "default"
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
-        bindsym $mod+Shift+q mode "default"
+        bindsym $mod+Shift+e mode "default"
 }
-bindsym $mod+Shift+q mode $exit
+bindsym $mod+Shift+e mode $exit
 
-# start rofi (replacement of dmenu)
-bindsym $mod+d exec "rofi -show drun"
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:$primary_font $title_font_size
-
-# exec_always --no-startup-id $polybar_launcher
-
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
 bar {
     font pango:$bar_font, $bar_icon_font $bar_font_size
     position top
     tray_output none
-    status_command bumblebee-status \
-        -m traffic nic pasink disk:root disk:home memory cpu datetime battery\
-        -p interval=2.5 \
-        traffic.states=^down traffic.showname=false\
-        nic.states=^down nic.format='{ssid}' \
-        home.format='{percent:.0f}%' home.path=/home \
-        root.format='{percent:.0f}%' root.path=/ \
-        cpu.format='{:.0f}%' \
-        memory.format='{percent:.0f}%' \
-        datetime.format="%a, %d %b %H:%M" \
-        -t nicer
-    colors {
-        background #FFFFFF
 
-        focused_workspace  #1976D2 #1976D2 #FFFFFF
-        active_workspace   #FFFFFF #FFFFFF #000000
-        inactive_workspace #FFFFFF #FFFFFF #888888
-        urgent_workspace   #900000 #900000 #FFFFFF
-        binding_mode       #900000 #900000 #aaaaaa
+    status_command i3status
+
+    separator_symbol •
+
+    colors {
+        background #2f343f
+        statusline #cccccc
+        separator #4b5262   # background #FFFFFF
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
     }
 }
 
 # Type                  border  background text indicator child_border
-client.focused          #1976D2 #1976D2 #ffffff #FFA000
-client.unfocused        #888888 #888888 #333333
-client.focused_inactive #888888 #888888 #333333
-client.urgent           #900000 #900000 #aaaaaa
+client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background           #2f343f
 
 # Hide titlebar
 for_window [class="^.*"] border pixel 2 title_format " %title"
 
 # Don't change focus with mouse
 focus_follows_mouse no
-
-# Assign programs to workspace
-assign [class="Gitg"] 9
-# assign [class="Slack"] 10
 
 # Hide borders when only one window is present
 hide_edge_borders smart
@@ -226,19 +230,13 @@ focus_on_window_activation smart
 # Automatic back-and-forth when switching to the current workspace
 workspace_auto_back_and_forth no
 
-# i3 gaps
+# gaps
 smart_gaps on
 gaps inner 8
 gaps outer 0
 
-# Random wallpaper binding
-# bindsym $mod+Shift+w exec feh --randomize --bg-fill $wallpaper
-bindsym $mod+Shift+w exec $splash client --change --port 8086
-bindsym $mod+Ctrl+w exec $splash client --fetch --port 8086
-
 # Set random wallpaper
-# exec --no-startup-id feh --randomize --bg-fill $wallpaper
-exec --no-startup-id $splash server --slideshow 10m --image $wallpaper --set-on-startup --port 8086
+exec --no-startup-id feh --randomize --bg-fill $wallpaper
 
 # Run compositing manager
 exec --no-startup-id compton -b
@@ -246,19 +244,13 @@ exec --no-startup-id compton -b
 # Start notification daemon
 exec --no-startup-id dunst
 
-# Start redshift
-exec --no-startup-id redshift -c ~/.config/redshift.conf
+exec --no-startup-id xrandr --output VGA-0 --mode 1360x768 --pos 1920x234 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+bindsym $mod+Ctrl+2 exec xrandr --output VGA-0 --mode 1360x768 --pos 1920x234 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+bindsym $mod+Ctrl+1 exec xrandr --output VGA-0 --off --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
 
-# Start xautolock
-# Use i3lock.sh as locker and suspend, after 5 miutes of inactivity
-# Enable hotcorners, top-right triggers suspend
-# Enable hotcorners, top-right disables suspend
-# Set the screen off as notifier, 10 seconds before suspending
-exec --no-startup-id xautolock \
--locker "$locker; systemctl suspend" \
--detectsleep -time $sleep_after \
--corners +-00 \
--cornerdelay 15 \
--cornerredelay 15
--notifier "xset dpms force off" \
--notify 10 \
+set $color_dir ~/.aaron-williamson-alacritty-theme/colors
+set $light_color base16-gruvbox-light-soft.yml
+set $dark_color base16-gruvbox-dark-soft.yml
+bindsym $mod+Shift+m exec alacritty-colorscheme -C $color_dir -t $light_color $dark_color
+bindsym $mod+Shift+n exec alacritty-colorscheme -C $color_dir -T
+bindsym $mod+Shift+b exec notify-send "Alacritty Colorscheme" `alacritty-colorscheme -C $color_dir -s`

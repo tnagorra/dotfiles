@@ -33,7 +33,7 @@ Plug 'w0rp/ale'
 
 " Plug 'Yggdroot/indentLine'
 " Plug 'Shougo/denite.nvim'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'miyakogi/seiya.vim'
 " Plug 'mboughaba/i3config.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
