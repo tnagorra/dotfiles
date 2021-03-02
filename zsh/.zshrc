@@ -112,8 +112,23 @@ alias softday="alacritty-colorscheme -V apply base16-cupertino.yml"
 alias softnight="alacritty-colorscheme -V apply base16-spacemacs.yml"
 
 alias vim="nvim"
-alias def="sdcv"
 alias ls="ls --color"
+# alias def="sdcv"
+
+TOGGLE_LOCAL=toggle@local.togglecorp.com
+HELIX_NIGHTLY=ec2-user@ec2-54-237-174-243.compute-1.amazonaws.com
+HELIX_ALPHA=ec2-user@ec2-34-193-32-225.compute-1.amazonaws.com
+HELIX_OLD=allochi@139.162.221.150
+
+alias sshd-toggle-local="ssh -v -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL -N -L 8888:localhost:3211 -4"
+alias sshd-helix-nightly="ssh -v -i $HOME/.ssh/helix-nightly $HELIX_NIGHTLY -N -L 9999:localhost:6050 -4"
+alias sshd-helix-alpha="ssh -v -i $HOME/.ssh/helix-alpha $HELIX_ALPHA -N -L 4114:localhost:4114 -4"
+alias sshd-helix-old="ssh -v -i $HOME/.ssh/helix-old $HELIX_OLD -N -L 5555:localhost:5432 -4"
+
+alias ssh-toggle-local="ssh -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL"
+alias ssh-helix-nightly="ssh -v -i $HOME/.ssh/helix-nightly $HELIX_NIGHTLY"
+alias ssh-helix-alpha="ssh -v -i $HOME/.ssh/helix-alpha $HELIX_ALPHA"
+alias ssh-helix-old="ssh -v -i $HOME/.ssh/helix-old $HELIX_OLD"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

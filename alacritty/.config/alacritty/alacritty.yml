@@ -407,44 +407,44 @@ key_bindings:
   - {key: F12, mods: Super, chars: "\e[24;3~"}
 
 colors:
-  # COLORSCHEME: base16-gruvbox-dark-soft.yml
+  # COLORSCHEME: base16-gruvbox-light-hard.yml
   # Default colors
   primary:
     # hard contrast: background = '0x1d2021'
-    background: '0x32302f'
-    foreground: '0xd5c4a1'
+    background: '0xf9f5d7'
+    foreground: '0x504945'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x32302f'
-    cursor: '0xd5c4a1'
+    text: '0xf9f5d7'
+    cursor: '0x504945'
 
   # Normal colors
   normal:
-    black: '0x32302f'
-    red: '0xfb4934'
-    green: '0xb8bb26'
-    yellow: '0xfabd2f'
-    blue: '0x83a598'
-    magenta: '0xd3869b'
-    cyan: '0x8ec07c'
-    white: '0xd5c4a1'
+    black: '0xf9f5d7'
+    red: '0x9d0006'
+    green: '0x79740e'
+    yellow: '0xb57614'
+    blue: '0x076678'
+    magenta: '0x8f3f71'
+    cyan: '0x427b58'
+    white: '0x504945'
 
   # Bright colors
   bright:
-    black: '0x665c54'
-    red: '0xfe8019'
-    green: '0x3c3836'
-    yellow: '0x504945'
-    blue: '0xbdae93'
-    magenta: '0xebdbb2'
+    black: '0xbdae93'
+    red: '0xaf3a03'
+    green: '0xebdbb2'
+    yellow: '0xd5c4a1'
+    blue: '0x665c54'
+    magenta: '0x3c3836'
     cyan: '0xd65d0e'
-    white: '0xfbf1c7'
+    white: '0x282828'
 
   indexed_colors:
-    - {index: 16, color: '0xe58d7d'}
-    - {index: 17, color: '0xe4a382'}
-    - {index: 18, color: '0x232530'}
-    - {index: 19, color: '0x2e303e'}
-    - {index: 20, color: '0x9da0a2'}
-    - {index: 21, color: '0xdcdfe4'}
+    - {index: 16, color: '0xbdb6c5'}
+    - {index: 17, color: '0xdedae2'}
+    - {index: 18, color: '0x392551'}
+    - {index: 19, color: '0x7b6d8b'}
+    - {index: 20, color: '0xddd6e5'}
+    - {index: 21, color: '0x470546'}
