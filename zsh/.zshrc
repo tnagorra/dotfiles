@@ -76,18 +76,24 @@ export HISTSIZE=$SAVEHIST
 export HISTFILE=~/.zsh_history
 export EDITOR='nvim'
 export TERM=xterm-256color
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/bin:$HOME/.cargo/bin"
 
 # Java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djbre.popupwindow.settype=false'
 
+
 # Android
-export ANDROID_HOME=${HOME}/Android/Sdk
-export PATH=${PATH}:${ANDROID_HOME}/tools
-export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# STUDIO_JDK=/usr/lib/jvm/java-11-openjdk/ /opt/android-studio/bin/studio.sh
 
 # Qt
 export QT_QPA_PLATFORMTHEME=gnome
+export QT_PLUGIN_PATH=/usr/lib/qt/plugins
 
 # Wayland
 if command -v sway &> /dev/null; then
@@ -115,16 +121,19 @@ alias vim="nvim"
 alias ls="ls --color"
 # alias def="sdcv"
 
-TOGGLE_LOCAL=toggle@local.togglecorp.com
+TOGGLE_LOCAL_OUT=toggle@local.togglecorp.com
+TOGGLE_LOCAL=toggle@192.168.88.252
 HELIX_NIGHTLY=ec2-user@ec2-54-237-174-243.compute-1.amazonaws.com
 HELIX_ALPHA=ec2-user@ec2-34-193-32-225.compute-1.amazonaws.com
 HELIX_OLD=allochi@139.162.221.150
 
+alias sshd-toggle-local-out="ssh -v -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL_OUT -N -L 8888:localhost:3211 -4"
 alias sshd-toggle-local="ssh -v -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL -N -L 8888:localhost:3211 -4"
 alias sshd-helix-nightly="ssh -v -i $HOME/.ssh/helix-nightly $HELIX_NIGHTLY -N -L 9999:localhost:6050 -4"
 alias sshd-helix-alpha="ssh -v -i $HOME/.ssh/helix-alpha $HELIX_ALPHA -N -L 4114:localhost:4114 -4"
 alias sshd-helix-old="ssh -v -i $HOME/.ssh/helix-old $HELIX_OLD -N -L 5555:localhost:5432 -4"
 
+alias ssh-toggle-local-out="ssh -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL_OUT"
 alias ssh-toggle-local="ssh -i $HOME/.ssh/toggle-local $TOGGLE_LOCAL"
 alias ssh-helix-nightly="ssh -v -i $HOME/.ssh/helix-nightly $HELIX_NIGHTLY"
 alias ssh-helix-alpha="ssh -v -i $HOME/.ssh/helix-alpha $HELIX_ALPHA"

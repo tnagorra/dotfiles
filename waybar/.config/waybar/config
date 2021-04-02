@@ -8,8 +8,9 @@
         "sway/window"
     ],
     "modules-center": [
-        "cpu",
         "temperature",
+        "cpu",
+        "disk",
         "memory"
     ],
     "modules-right": [
@@ -36,7 +37,7 @@
     },
     "network": {
         // "interface": "auto", // (Optional)
-        "format-wifi": " {signalStrength}dBm {ipaddr}",
+        "format-wifi": " {signalStrength}dBm {essid}",
         // "format-wifi": " {signalStrength}dBm {essid}",
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
         "format-linked": "No IP address",
@@ -61,11 +62,21 @@
             "critical": 85
         }
     },
+    "disk": {
+        "format": " {percentage_used}",
+        "interval": 30,
+        "path": "/",
+        "states": {
+            "good": 10,
+            "warning": 70,
+            "critical": 85
+        }
+    },
     "backlight": {
         "format": " {percent}"
     },
     "memory": {
-        "format": " {}",
+        "format": " {}",
         "states": {
             "good": 10,
             "warning": 70,

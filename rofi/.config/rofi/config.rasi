@@ -1,0 +1,18 @@
+configuration {
+	modi: "window,run,drun";
+	width: 50;
+	lines: 10;
+	font: "Hack 12";
+	padding: 10;
+	show-icons: true;
+	terminal: "alacritty";
+	sidebar-mode: false;
+	combi-modi: "window,run,drun";
+	separator-style: "none";
+	hide-scrollbar: true;
+	fullscreen: false;
+	fake-transparency: false;
+	click-to-exit: true;
+	show-match: false;
+	theme: "/usr/share/rofi/themes/android_notification.rasi";
+}

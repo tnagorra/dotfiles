@@ -66,7 +66,7 @@ set pumblend=20
 set showmatch                                       " When inserting bracket, briefly jump to its match
 set number                                          " Show line number for each line
 set fillchars+=vert:\                               " Remove ugly | in split
-set shortmess=filmnrxoOtT                           " Show short message to avoid hit-enter
+set shortmess=filnxtToOrm                           " Show short message to avoid hit-enter
 set viewoptions=folds,options,cursor,unix,slash     " Better Unix / Windows compatibility
 set iskeyword-=.                                    " '.' is an end of word designator
 set list                                            " Useful to see difference between tab and space

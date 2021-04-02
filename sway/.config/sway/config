@@ -51,8 +51,8 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # move focused workspace
-bindsym $mod+Ctrl+$left move workspace to output left
-bindsym $mod+Ctrl+$right move workspace to output right
+# bindsym $mod+Ctrl+$left move workspace to output left
+# bindsym $mod+Ctrl+$right move workspace to output right
 
 # split in horizontal and vertical orientation
 bindsym $mod+b split h
@@ -168,10 +168,9 @@ mode $exit_icon {
 }
 bindsym $mod+Shift+e mode $exit_icon
 
-# start rofi (replacement of dmenu)
+# bindsym $mod+d exec wofi
 bindsym $mod+d exec "rofi -show drun"
 
-bindsym $mod+Shift+d exec rofi -run-list-command ". ~/Desktop/Scripts/zsh_aliases_functions.sh" -run-command "/bin/zsh -i -c '{cmd}'" -rnow -show run
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -220,11 +219,13 @@ gaps outer 4
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
 
-set $sound_dir "/usr/share/sounds/freedesktop/stereo"
+output eDP-1 pos 0 0
+output HDMI-A-1 pos 1600 0
 
-bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
+# set $sound_dir "/usr/share/sounds/freedesktop/stereo"
+# bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+# bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+# bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
 
 set $light_color base16-gruvbox-light-soft.yml
 set $dark_color base16-gruvbox-dark-soft.yml
@@ -258,3 +259,5 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 exec --no-startup-id wl-gammactl -c 1.000 -b 1.012 -g 0.750
 exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled
+
+include ~/.config/sway/config.d/*.conf

@@ -39,6 +39,7 @@ window#waybar * {
 #network,
 #pulseaudio,
 #temperature,
+#disk,
 #tray {
     padding: 0 6px;
     margin: 1px 4px;
@@ -93,6 +94,7 @@ window#waybar * {
 
 #battery.warning:not(.charging),
 #memory.warning,
+#disk.critical,
 #cpu.warning,
 #network.disconnected,
 #pulseaudio.muted {
@@ -102,6 +104,7 @@ window#waybar * {
 
 #battery.critical:not(.charging),
 #memory.critical,
+#disk.critical,
 #cpu.critical {
     background-color: @danger;
     color: @black;
