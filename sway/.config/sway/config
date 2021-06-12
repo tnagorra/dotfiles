@@ -234,6 +234,11 @@ set $dark_color base16-gruvbox-dark-soft.yml
 bindsym $mod+Shift+c exec alacritty-colorscheme -V toggle base16-gruvbox-light-hard.yml base16-gruvbox-dark-soft.yml \
     && notify-send "Colorscheme" `alacritty-colorscheme status`
 
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 # Start notification daemon
 exec --no-startup-id mako
 
@@ -260,4 +265,12 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 exec --no-startup-id wl-gammactl -c 1.000 -b 1.012 -g 0.750
 exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled
 
-include ~/.config/sway/config.d/*.conf
+# include ~/.config/sway/config.d/*.conf
+
+set $KEYBOARD_CONFIG {
+    xkb_layout us
+    xkb_options ctrl:nocaps
+}
+
+# Change caps-lock to ESC
+input "type:keyboard" $KEYBOARD_CONFIG

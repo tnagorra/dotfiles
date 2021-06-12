@@ -47,7 +47,6 @@ opt('w', 'fillchars', 'vert: ,fold: ')
 opt('o', 'directory', home .. '.local/share/nvim/swap,/tmp')
 opt('o', 'undodir', home .. '.local/share/nvim/undo,/tmp')
 opt('o', 'backupdir', home .. '.local/share/nvim/backup,/tmp')
-opt('o', 'shadafile', home .. '.local/share/nvim/shada/main.shada,/tmp')
 
 g.mapleader = ','
 g.maplocalleader = '\\'
