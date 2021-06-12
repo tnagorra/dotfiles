@@ -42,7 +42,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+Return exec caja
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec zsh -c "rofi -show drun"
 
 # change focus
 bindsym $mod+h focus left
@@ -244,13 +244,12 @@ exec --no-startup-id compton -b
 # Start notification daemon
 exec --no-startup-id dunst
 
+exec --no-startup-id setxkbmap -layout us -option ctrl:nocaps
+
+
 exec --no-startup-id xrandr --output VGA-0 --mode 1360x768 --pos 1920x234 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
 bindsym $mod+Ctrl+2 exec xrandr --output VGA-0 --mode 1360x768 --pos 1920x234 --rotate normal --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
 bindsym $mod+Ctrl+1 exec xrandr --output VGA-0 --off --output HDMI-0 --primary --mode 1920x1080 --pos 0x0 --rotate normal
 
-set $color_dir ~/.aaron-williamson-alacritty-theme/colors
-set $light_color base16-gruvbox-light-soft.yml
-set $dark_color base16-gruvbox-dark-soft.yml
-bindsym $mod+Shift+m exec alacritty-colorscheme -C $color_dir -t $light_color $dark_color
-bindsym $mod+Shift+n exec alacritty-colorscheme -C $color_dir -T
-bindsym $mod+Shift+b exec notify-send "Alacritty Colorscheme" `alacritty-colorscheme -C $color_dir -s`
+bindsym $mod+Shift+t exec alacritty-colorscheme -V toggle base16-gruvbox-light-hard.yml base16-gruvbox-dark-soft.yml \
+    && notify-send "Colorscheme" `alacritty-colorscheme status`

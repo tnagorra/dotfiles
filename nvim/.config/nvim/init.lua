@@ -3,6 +3,8 @@ local g = vim.g
 local utils = require 'utils'
 local opt, map = utils.opt, utils.map
 
+local home = os.getenv('HOME') .. '/'
+
 require 'plugins'
 
 opt('o', 'termguicolors', true)
@@ -42,10 +44,10 @@ opt('w', 'statusline', ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3
 opt('o', 'rulerformat', '%30(%=:b%n%y%m%r%w %l,%c%V %P%)')
 opt('w', 'fillchars', 'vert: ,fold: ')
 
-opt('o', 'directory', '$HOME/.local/share/nvim/swap,/tmp')
-opt('o', 'undodir', '$HOME/.local/share/nvim/undo,/tmp')
-opt('o', 'backupdir', '$HOME/.local/share/nvim/backup,/tmp')
-opt('o', 'shadafile', '$HOME/.local/share/nvim/shada/main.shada,/tmp')
+opt('o', 'directory', home .. '.local/share/nvim/swap,/tmp')
+opt('o', 'undodir', home .. '.local/share/nvim/undo,/tmp')
+opt('o', 'backupdir', home .. '.local/share/nvim/backup,/tmp')
+opt('o', 'shadafile', home .. '.local/share/nvim/shada/main.shada,/tmp')
 
 g.mapleader = ','
 g.maplocalleader = '\\'
@@ -58,10 +60,12 @@ map('', 'j', 'v:count == 0 ? "gj" : "j"', { silent = true, expr = true })
 map('', 'k', 'v:count == 0 ? "gk" : "k"', { silent = true, expr = true })
 
 -- open/reload init.lua
+-- NOTE: $HOME works here because it is parsed by vimscript
 map('n', '<leader>c', ':e $HOME/.config/nvim/init.lua<CR>', { silent = true })
 map('n', '<leader>r', ':luafile $HOME/.config/nvim/init.lua<CR>', { silent = true })
 
 require 'fold'
+-- require 'indent-blankline'
 require 'base16vim'
 require 'netrw'
 require 'suda'
@@ -69,3 +73,4 @@ require 'spelunker'
 require 'ale'
 require 'dirvish'
 require 'fzf'
+require 'neovide'

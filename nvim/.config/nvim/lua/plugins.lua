@@ -1,20 +1,30 @@
-local cmd = vim.cmd
-cmd 'packadd packer.nvim'
-
-local packer = require('packer')
-
-return packer.startup(function(use)
+return require('packer').startup(function()
+    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'lambdalisue/suda.vim'
+
+    -- gui
     use 'chriskempson/base16-vim'
-    use 'kamykn/spelunker.vim'
+    use 'sheerun/vim-polyglot'
+    -- use {'lukas-reineke/indent-blankline.nvim', branch='lua'}
+
+    -- git
     use 'tpope/vim-fugitive'
     use 'mhinz/vim-signify'
-    use 'AndrewRadev/qftools.vim'
-    use 'justinmk/vim-dirvish'
-    use 'sheerun/vim-polyglot'
-    use 'w0rp/ale'
+
+    -- file-system
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
-end)
+    use 'justinmk/vim-dirvish'
+    use 'lambdalisue/suda.vim'
+    use 'tnagorra/wd-nvim'
+    -- use '~/Projects/personal/wd-nvim'
 
+    -- spell check
+    use 'kamykn/spelunker.vim'
+
+    -- language
+    use 'w0rp/ale'
+
+    -- misc
+    use 'AndrewRadev/qftools.vim'
+end)
