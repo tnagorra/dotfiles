@@ -86,6 +86,8 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 export PIPENV_VENV_IN_PROJECT="enabled"
 
+export DOCKER_BUILDKIT=1
+
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 [ -f ~/.ssh-aliases.zsh ] && source ~/.ssh-aliases.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

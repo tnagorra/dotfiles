@@ -24,7 +24,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # Qt
-export QT_QPA_PLATFORMTHEME=gnome
+export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_PLUGIN_PATH=/usr/lib/qt/plugins
 
 # Sway or StartX

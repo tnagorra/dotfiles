@@ -24,6 +24,7 @@ return require('packer').startup(function()
 
     -- language
     use 'w0rp/ale'
+    use 'npxbr/glow.nvim'
 
     -- misc
     use 'AndrewRadev/qftools.vim'
