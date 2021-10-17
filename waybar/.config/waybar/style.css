@@ -1,20 +1,20 @@
-@define-color background rgba(43, 48, 59, 0.8);
+@define-color background rgba(43, 48, 59, 0.6);
 
 @define-color primary #2195f2;
 @define-color primary-light #6ec6ff;
 @define-color primary-dark #0068bf;
 
 @define-color success #aed581;
+@define-color warning #ffea00;
 @define-color danger #f53c3c;
 
 @define-color white #ffffff;
-@define-color black #000000;
+@define-color black #212121;
 @define-color gray #cbcbcb;
 
 @keyframes blink {
     to {
-        background-color: unset;
-        color: @white;
+        border-top: 2px solid transparent;
     }
 }
 
@@ -29,32 +29,16 @@ window#waybar * {
     min-height: 0;
 }
 
-#window,
-#backlight,
-#battery,
-#clock,
-#cpu,
-#idle_inhibitor,
-#memory,
-#network,
-#pulseaudio,
-#temperature,
-#disk,
-#tray {
-    padding: 0 6px;
-    margin: 1px 4px;
-    border-radius: 4px;
-}
-
 #workspaces button {
     border-radius: 0px;
-}
-
-#workspaces button {
     border-top: 2px solid transparent;
-    padding: 0 6px;
+    padding: 0 8px;
     background-color: unset;
     color: @white;
+}
+#workspaces button.visible {
+    border-top: 2px solid @white;
+    background-color: @gray;
 }
 #workspaces button.focused {
     border-top: 2px solid @white;
@@ -70,44 +54,65 @@ window#waybar * {
     padding: 0 6px;
 }
 
+#window,
+#backlight,
+#battery,
+#clock,
+#cpu,
+#idle_inhibitor,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#disk,
+#tray {
+    padding: 0 8px;
+    margin: 0 2px;
+    background-color: unset;
+    color: unset;
+    border-top: 2px solid transparent;
+}
+
 #window {
     color: @gray;
 }
-
 #network {
     color: @success;
 }
-
+#pulseaudio.muted,
+#network.disconnected {
+    color: @danger;
+}
 #clock {
     color: @primary-light;
 }
-
 #tray {
     background-color: @black;
 }
 
 #battery.charging,
 #idle_inhibitor.activated {
-    background-color: @success;
-    color: @black;
+    border-top: 2px solid @success;
 }
 
 #battery.warning:not(.charging),
 #memory.warning,
-#disk.critical,
-#cpu.warning,
-#network.disconnected,
-#pulseaudio.muted {
-    background-color: unset;
-    color: @danger;
+#disk.warning,
+#cpu.warning {
+    border-top: 2px solid @warning;
+
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 #battery.critical:not(.charging),
 #memory.critical,
 #disk.critical,
 #cpu.critical {
-    background-color: @danger;
-    color: @black;
+    border-top: 2px solid @danger;
 
     animation-name: blink;
     animation-duration: 0.5s;

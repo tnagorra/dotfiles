@@ -3,3 +3,4 @@ alias night="alacritty-colorscheme -V apply base16-gruvbox-dark-soft.yml && gset
 
 alias vim="nvim"
 alias ls="ls --color"
+# alias pdfjoin='pdfjam --fitpaper true --rotateoversize true --suffix joined'

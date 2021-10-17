@@ -1,7 +1,7 @@
 local g = vim.g
 
 local utils = require 'utils'
-local opt, map = utils.opt, utils.map
+local opt, map, autocmd = utils.opt, utils.map, utils.autocmd
 
 local home = os.getenv('HOME') .. '/'
 
@@ -38,7 +38,7 @@ opt('o', 'shortmess', 'filnxtToOrm')
 opt('w', 'list', true)
 opt('w', 'listchars', 'tab:› ,trail:•,extends:⭑,nbsp:.')
 opt('o', 'wildmode', 'list:longest')
-opt('o', 'wildignore', '*/.git,*/node_modules,*/coverage,*/__pycache__,*.lock')
+opt('o', 'wildignore', '*/.git,*/node_modules,*/coverage,*/__pycache__')
 opt('o', 'wildignorecase', true)
 opt('w', 'statusline', ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L')
 opt('o', 'rulerformat', '%30(%=:b%n%y%m%r%w %l,%c%V %P%)')
@@ -70,6 +70,34 @@ require 'netrw'
 require 'suda'
 require 'spelunker'
 require 'ale'
+require 'lsp'
 require 'dirvish'
 require 'fzf'
 require 'neovide'
+
+if g.started_by_firenvim then
+    opt('o', 'laststatus', 0)
+    opt('w', 'number', false)
+    autocmd {
+        firenvim = {
+            { 'BufEnter', 'zube.io_*.txt', 'set filetype=markdown' },
+            { 'BufEnter', 'github.com_*.txt', 'set filetype=markdown' },
+        };
+    }
+    g.firenvim_config = {
+        ['localSettings'] = {
+            ['.*'] = {
+                ['priority'] = 1,
+                ['takeover'] = 'never',
+            },
+            ['https://zube.io/'] = {
+                ['priority'] = 1,
+                ['takeover'] = 'always',
+            },
+            ['https://github.com/'] = {
+                ['priority'] = 1,
+                ['takeover'] = 'always',
+            },
+        }
+    }
+end

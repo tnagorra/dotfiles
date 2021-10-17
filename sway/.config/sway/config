@@ -1,5 +1,5 @@
+# vim: filetype=config
 # i3 config file (v4)
-# vi: ft=i3config
 
 # Set modifier key
 set $mod Mod4
@@ -51,8 +51,8 @@ bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
 # move focused workspace
-# bindsym $mod+Ctrl+$left move workspace to output left
-# bindsym $mod+Ctrl+$right move workspace to output right
+bindsym $mod+Ctrl+$left move workspace to output left
+bindsym $mod+Ctrl+$right move workspace to output right
 
 # split in horizontal and vertical orientation
 bindsym $mod+b split h
@@ -116,9 +116,10 @@ bindsym $mod+Shift+Return exec caja
 bindsym $mod+Shift+r reload
 
 # Screenshot
-bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+bindsym Print exec grim - | wl-copy
+bindsym $mod+Print exec grim -g "$(slurp -d)" - | wl-copy
 bindsym Shift+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
-bindsym $mod+Print exec grim -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -d) - | wl-copy
+bindsym Ctrl+Print exec grim -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -d) - | wl-copy
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
@@ -126,8 +127,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -perceived -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -perceived -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -perceived -inc 5 -time 0 && ddcutil setvcp 10 $(xbacklight -get)
+bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -perceived -dec 5 -time 0 && ddcutil setvcp 10 $(xbacklight -get)
 
 # Media player controls
 bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
@@ -219,8 +220,8 @@ gaps outer 4
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
 
-output eDP-1 pos 0 0
-output HDMI-A-1 pos 1600 0
+output HDMI-A-1 pos 0 0
+output eDP-1 pos 1920 0
 
 # set $sound_dir "/usr/share/sounds/freedesktop/stereo"
 # bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
@@ -234,6 +235,9 @@ exec hash dbus-update-activation-environment 2>/dev/null && \
 
 # Start notification daemon
 exec --no-startup-id mako
+
+# Start safeeyes
+exec --no-startup-id safeeyes
 
 # Set theme in gsettings
 set $gnome-schema org.gnome.desktop.interface

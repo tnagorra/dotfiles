@@ -25,7 +25,12 @@ return require('packer').startup(function()
     -- language
     use 'w0rp/ale'
     use 'npxbr/glow.nvim'
+    use 'neovim/nvim-lspconfig'
 
     -- misc
     use 'AndrewRadev/qftools.vim'
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
 end)

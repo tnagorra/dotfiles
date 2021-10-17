@@ -17,7 +17,4 @@ android
 coverage
 ios
 media/
-migrations/
 node_modules
-package.lock
-yarn.lock
