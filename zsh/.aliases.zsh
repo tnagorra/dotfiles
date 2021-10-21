@@ -1,5 +1,5 @@
-alias day="alacritty-colorscheme -V apply base16-gruvbox-light-hard.yml && gsettings set org.gnome.desktop.interface gtk-theme Breeze"
-alias night="alacritty-colorscheme -V apply base16-gruvbox-dark-soft.yml && gsettings set org.gnome.desktop.interface gtk-theme Breeze-Dark"
+alias day="alacritty-colorscheme -V apply base16-gruvbox-light-hard.yml && gsettings set org.gnome.desktop.interface gtk-theme OSX-Arc-White"
+alias night="alacritty-colorscheme -V apply base16-gruvbox-dark-soft.yml && gsettings set org.gnome.desktop.interface gtk-theme OSX-Arc-Shadow"
 
 alias vim="nvim"
 alias ls="ls --color"
