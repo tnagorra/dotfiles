@@ -1,41 +1,3 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
-
-zinit wait lucid light-mode for \
-    sbin \
-        mfaerevaag/wd \
-        zuxfoucault/colored-man-pages_mod \
-    atinit"zicompinit; zicdreplay" \
-        zdharma/fast-syntax-highlighting \
-    atload"_zsh_autosuggest_start; bindkey '^ ' autosuggest-accept; export ZSH_AUTOSUGGEST_USE_ASYNC=1" \
-        zsh-users/zsh-autosuggestions \
-    blockf atpull'zinit creinstall -q .' \
-        zsh-users/zsh-completions
-
-zinit light-mode for \
-    sbin \
-        denysdovhan/spaceship-prompt \
-    atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
-        trapd00r/LS_COLORS
-
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 export SPACESHIP_PROMPT_SEPARATE_LINE=true
 export SPACESHIP_HG_SHOW=false
@@ -64,7 +26,7 @@ export SPACESHIP_KUBECTL_VERSION_SHOW=false
 export SPACESHIP_KUBECONTEXT_SHOW=false
 export SPACESHIP_TERRAFORM_SHOW=false
 export SPACESHIP_EXIT_CODE_SHOW=true
-export SPACESHIP_EXIT_CODE_SYMBOL="❌"
+export SPACESHIP_EXIT_CODE_SYMBOL="  "
 ### End of Zinit's installer chunk
 
 bindkey -v
@@ -91,3 +53,35 @@ export DOCKER_BUILDKIT=1
 [ -f ~/.aliases.zsh ] && source ~/.aliases.zsh
 [ -f ~/.ssh-aliases.zsh ] && source ~/.ssh-aliases.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
+
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+zinit wait lucid light-mode for \
+    sbin \
+        mfaerevaag/wd \
+        zuxfoucault/colored-man-pages_mod \
+    atinit"zicompinit; zicdreplay" \
+        zdharma-continuum/fast-syntax-highlighting \
+    atload"_zsh_autosuggest_start; bindkey '^ ' autosuggest-accept; export ZSH_AUTOSUGGEST_USE_ASYNC=1" \
+        zsh-users/zsh-autosuggestions \
+    blockf atpull'zinit creinstall -q .' \
+        zsh-users/zsh-completions
+
+zinit light-mode for \
+    sbin \
+        denysdovhan/spaceship-prompt \
+    atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
+        trapd00r/LS_COLORS
+
+### End of Zinit's installer chunk

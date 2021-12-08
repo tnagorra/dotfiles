@@ -1,3 +1,4 @@
 #!/bin/bash
 image=$HOME/.config/sway/windows-error.png
-swaylock --daemonize --no-unlock-indicator --ignore-empty-password --image $image --tiling
+bgcolor=#1f67b1
+swaylock --daemonize --no-unlock-indicator --ignore-empty-password --image "$image" --color="$bgcolor" --scaling=center

@@ -1,4 +1,4 @@
-@define-color background rgba(43, 48, 59, 0.6);
+@define-color background rgba(43, 48, 59, 0.7);
 
 @define-color primary #2195f2;
 @define-color primary-light #6ec6ff;
@@ -39,13 +39,16 @@ window#waybar * {
 #workspaces button.visible {
     border-top: 2px solid @white;
     background-color: @gray;
+    color: @black;
 }
 #workspaces button.focused {
     border-top: 2px solid @white;
     background-color: @primary;
+    color: @white;
 }
 #workspaces button.urgent {
     background-color: @danger;
+    color: @white;
 }
 
 #mode {

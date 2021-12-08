@@ -1,5 +1,6 @@
 # vim: filetype=config
-# i3 config file (v4)
+
+set $locker ~/.config/sway/swaylock.sh
 
 # Set modifier key
 set $mod Mod4
@@ -8,29 +9,6 @@ set $left h
 set $down j
 set $up k
 set $right l
-
-set $term alacritty
-
-set $exit_icon 
-set $resize_icon 
-
-# time in seconds
-set $black_after 1200
-set $lock_after 2400
-
-set $white #37474F
-set $gray #ffffff
-set $blue #03A9F4
-set $green #8BC34A
-set $red #f44336
-
-set $primary_font Hack
-set $title_font_size 10
-
-set $wallpaper ~/Pictures/dark*
-set $locker ~/.config/sway/swaylock.sh
-# set $vol_sink 0
-set $vol_sink $(pactl list short sinks | grep RUNNING | cut -f1)
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod normal
@@ -107,13 +85,18 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # start terminal
+set $term alacritty
 bindsym $mod+Return exec $term
 
 # start filemanager
-bindsym $mod+Shift+Return exec caja
+set $filemanager nautilus
+bindsym $mod+Shift+Return exec $filemanager
 
 # reload the configuration file
 bindsym $mod+Shift+r reload
+
+# Color picker
+bindsym $mod+c exec grim -g "$(slurp -p -b 00000000)" - | convert - txt:- | awk 'END{print $3}' | wl-copy
 
 # Screenshot
 bindsym Print exec grim - | wl-copy
@@ -122,13 +105,26 @@ bindsym Shift+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(
 bindsym Ctrl+Print exec grim -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -d) - | wl-copy
 
 # Pulse Audio controls
+set $vol_sink $(pactl list short sinks | grep RUNNING | cut -f1)
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
+set $micmuter ~/.config/sway/micmute.sh
+bindsym XF86AudioMicMute exec $micmuter
+
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -fps 60 -perceived -inc 5 -time 0 && ddcutil setvcp 10 $(xbacklight -get)
-bindsym XF86MonBrightnessDown exec xbacklight -fps 60 -perceived -dec 5 -time 0 && ddcutil setvcp 10 $(xbacklight -get)
+bindsym XF86MonBrightnessUp exec xbacklight -perceived -inc 5 -time 0
+bindsym XF86MonBrightnessDown exec xbacklight -perceived -dec 5 -time 0
+
+# External screen brightness controls
+bindsym Shift+XF86MonBrightnessUp exec ddcutil setvcp 10 + 20
+bindsym Shift+XF86MonBrightnessDown exec ddcutil setvcp 10 - 20
+
+set $screentoggler ~/.config/sway/screentoggle.sh eDP-1
+bindsym XF86Display exec $screentoggler
+
+output eDP-1 scale 2.6
 
 # Media player controls
 bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
@@ -137,12 +133,13 @@ bindsym $mod+Right exec playerctl next          # XF86AudioNext
 bindsym $mod+Left exec playerctl previous       # XF86AudioPrev
 
 # resize window (you can also use the mouse for that)
+set $resize_icon 
 mode $resize_icon {
         # These bindings trigger as soon as you enter the resize mode
-        bindsym $left resize shrink width 2 px or 2 ppt
-        bindsym $down resize grow height 2 px or 2 ppt
-        bindsym $up resize shrink height 2 px or 2 ppt
-        bindsym $right resize grow width 2 px or 2 ppt
+        bindsym $left resize shrink width 10 px or 10 ppt
+        bindsym $down resize grow height 10 px or 10 ppt
+        bindsym $up resize shrink height 10 px or 10 ppt
+        bindsym $right resize grow width 10 px or 10 ppt
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
@@ -150,6 +147,7 @@ mode $resize_icon {
 bindsym $mod+r mode $resize_icon
 
 # Create Log out, Reboot, Poweroff bindings
+set $exit_icon 
 mode $exit_icon {
         # Reboot
         bindsym r exec systemctl reboot, mode "default"
@@ -169,18 +167,24 @@ mode $exit_icon {
 }
 bindsym $mod+Shift+e mode $exit_icon
 
-# bindsym $mod+d exec wofi
 bindsym $mod+d exec "rofi -show drun"
-
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:$primary_font $title_font_size
+set $primary_font Hack
+set $primary_font_size 10
+font pango:$primary_font $primary_font_size
 
 bar {
     swaybar_command waybar
 }
 
+# colors
+set $white #37474F
+set $gray #ffffff
+set $blue #03A9F4
+set $green #8BC34A
+set $red #f44336
 # class                 border  bground text    indicator child_border
 client.focused          $blue   $blue   $white  $green  $blue
 client.focused_inactive $gray   $gray   $white  $gray   $gray
@@ -190,17 +194,21 @@ client.placeholder      $gray   $gray   $white  $gray   $gray
 client.background       $white
 
 # Hide titlebar
-default_border pixel
+default_border pixel 2
 
 # Don't change focus with mouse
 focus_follows_mouse no
 
 # Assign programs to workspace
-# assign [class="Gitg"] 9
-# assign [class="Slack"] 10
-for_window [class="KeePassXC"] floating enable
+assign [app_id="thunderbird"] 9
+assign [class="Slack"] 10
+
 for_window [title="VLSub 0.11.1"] floating enable
-for_window [class="Thunderbird" instance="Calendar"] floating enable
+for_window [title="Firefox Developer Edition — Sharing Indicator"] floating enable, sticky enable
+
+# Increase borders for non-wayland windows
+for_window [shell="^((?!xdg_shell).)*$"] border pixel 6
+
 
 # Hide borders when only one window is present
 hide_edge_borders smart
@@ -217,59 +225,39 @@ smart_gaps on
 gaps inner 4
 gaps outer 4
 
+# Set wallpapers
+set $wallpaper ~/Pictures/*
 output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
-
-output HDMI-A-1 pos 0 0
-output eDP-1 pos 1920 0
-
-# set $sound_dir "/usr/share/sounds/freedesktop/stereo"
-# bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-# bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
-# bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
-
-# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
-# Start notification daemon
-exec --no-startup-id mako
-
-# Start safeeyes
-exec --no-startup-id safeeyes
-
-# Set theme in gsettings
-set $gnome-schema org.gnome.desktop.interface
-
-# exec_always {
-#     gsettings set $gnome-schema gtk-theme 'Breeze'
-#     gsettings set $gnome-schema icon-theme 'Breeze'
-#     gsettings set $gnome-schema cursor-theme 'Breeze'
-# }
-
-# Turn off screen and Sleep after certain timeout
-exec swayidle \
-    timeout $black_after 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    timeout $lock_after 'systemctl suspend, mode default' \
-    before-sleep $locker
 
 # Enable tap on click for touchpad
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
 }
 
-exec --no-startup-id wl-gammactl -c 1.000 -b 1.012 -g 0.750
-# exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled
-
-# include ~/.config/sway/config.d/*.conf
-
-set $KEYBOARD_CONFIG {
+# Change caps-lock to ESC
+input "type:keyboard" {
     xkb_layout us
     xkb_options ctrl:nocaps
 }
 
-# Change caps-lock to ESC
-input "type:keyboard" $KEYBOARD_CONFIG
+# Start notification daemon
+exec --no-startup-id mako
 
-for_window [title="Firefox Developer Edition — Sharing Indicator"] floating enable
+# Clipboard manager
+exec --no-startup-id wl-paste -t text --watch clipman store
+
+# Turn off screen and Sleep after certain timeout
+set $screen_disable_after 1200
+set $lock_after 2400
+exec --no-startup-id swayidle \
+    timeout $screen_disable_after 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout $lock_after 'systemctl suspend, mode default' before-sleep $locker
+
+# set $sound_dir "/usr/share/sounds/freedesktop/stereo"
+# bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+# bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
+# bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
+
+include /etc/sway/config.d/*
+include ~/.config/sway/config.d/$(hostname)
