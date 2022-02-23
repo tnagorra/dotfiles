@@ -85,11 +85,12 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # start terminal
-set $term alacritty
+set $term foot
 bindsym $mod+Return exec $term
+# exec --no-startup-id foot --server
 
 # start filemanager
-set $filemanager nautilus
+set $filemanager thunar
 bindsym $mod+Shift+Return exec $filemanager
 
 # reload the configuration file
@@ -110,8 +111,10 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
 bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
 
+# Mute microphone
 set $micmuter ~/.config/sway/micmute.sh
 bindsym XF86AudioMicMute exec $micmuter
+bindsym $mod+q exec $micmuter
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -perceived -inc 5 -time 0
@@ -124,10 +127,10 @@ bindsym Shift+XF86MonBrightnessDown exec ddcutil setvcp 10 - 20
 set $screentoggler ~/.config/sway/screentoggle.sh eDP-1
 bindsym XF86Display exec $screentoggler
 
-output eDP-1 scale 2.6
+output HDMI-A-1 pos 0 0
+output eDP-1 pos 1920 0 scale 2
 
 # Media player controls
-bindsym $mod+Up exec playerctl play-pause       # XF86AudioPlay
 bindsym $mod+Down exec playerctl play-pause     # XF86AudioPause
 bindsym $mod+Right exec playerctl next          # XF86AudioNext
 bindsym $mod+Left exec playerctl previous       # XF86AudioPrev
@@ -227,8 +230,8 @@ gaps outer 4
 
 # Set wallpapers
 set $wallpaper ~/Pictures/*
-output * background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill
-bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -type f -maxdepth 1 | shuf -n 1` fill"
+output * background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill
+bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill"
 
 # Enable tap on click for touchpad
 input "2:7:SynPS/2_Synaptics_TouchPad" {

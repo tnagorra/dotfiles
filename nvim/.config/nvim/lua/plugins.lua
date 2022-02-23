@@ -3,8 +3,9 @@ return require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- gui
-    use 'chriskempson/base16-vim'
+    use 'jeffkreeftmeijer/vim-dim'
     use 'sheerun/vim-polyglot'
+    -- use 'chriskempson/base16-vim'
     -- use {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 
     -- git

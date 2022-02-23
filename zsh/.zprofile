@@ -1,9 +1,9 @@
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:"
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.cargo/bin"
 
 
 # Go
-export GOPATH='$HOME/.local/lib/go'
+export GOPATH="$HOME/.local/lib/go"
 
 # Java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djbre.popupwindow.settype=false'
@@ -27,14 +27,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init --path)"
 fi
 
-# Gtk
+# Gtk theme
 
 export GTK_THEME=Adwaita:light
 
 # Qt
-export QT_QPA_PLATFORMTHEME=qt5ct
-export QT_PLUGIN_PATH=/usr/lib/qt/plugins
-export QT_STYLE_OVERRIDE=adwaita
+export QT_SELECT=5
+export QT_QPA_PLATFORMTHEME=gtk2
+# export QT_PLUGIN_PATH=/usr/lib/qt/plugins
+# export QT_STYLE_OVERRIDE=adwaita
 
 # Sway or StartX
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then

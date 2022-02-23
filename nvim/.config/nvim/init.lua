@@ -1,4 +1,5 @@
 local g = vim.g
+local cmd = vim.cmd
 
 local utils = require 'utils'
 local opt, map, autocmd = utils.opt, utils.map, utils.autocmd
@@ -7,7 +8,7 @@ local home = os.getenv('HOME') .. '/'
 
 require 'plugins'
 
-opt('o', 'termguicolors', true)
+opt('o', 'termguicolors', false)
 opt('o', 'background', 'light')
 opt('o', 'lazyredraw', true)
 opt('o', 'hidden', true)
@@ -48,6 +49,11 @@ opt('o', 'directory', home .. '.local/share/nvim/swap,/tmp')
 opt('o', 'undodir', home .. '.local/share/nvim/undo,/tmp')
 opt('o', 'backupdir', home .. '.local/share/nvim/backup,/tmp')
 
+
+cmd[[colorscheme dim]]
+cmd[[hi SignColumn ctermfg=1 ctermbg=0]]
+-- cmd[[hi VertSplit ctermfg=1 ctermbg=8]]
+
 g.mapleader = ','
 g.maplocalleader = '\\'
 
@@ -63,9 +69,10 @@ map('', 'k', 'v:count == 0 ? "gk" : "k"', { silent = true, expr = true })
 map('n', '<leader>c', ':e $HOME/.config/nvim/init.lua<CR>', { silent = true })
 map('n', '<leader>r', ':luafile $HOME/.config/nvim/init.lua<CR>', { silent = true })
 
-require 'fold'
 -- require 'indent-blankline'
-require 'base16vim'
+-- require 'neovide'
+-- require 'base16vim'
+require 'fold'
 require 'netrw'
 require 'suda'
 require 'spelunker'
@@ -73,31 +80,4 @@ require 'ale'
 require 'lsp'
 require 'dirvish'
 require 'fzf'
-require 'neovide'
-
-if g.started_by_firenvim then
-    opt('o', 'laststatus', 0)
-    opt('w', 'number', false)
-    autocmd {
-        firenvim = {
-            { 'BufEnter', 'zube.io_*.txt', 'set filetype=markdown' },
-            { 'BufEnter', 'github.com_*.txt', 'set filetype=markdown' },
-        };
-    }
-    g.firenvim_config = {
-        ['localSettings'] = {
-            ['.*'] = {
-                ['priority'] = 1,
-                ['takeover'] = 'never',
-            },
-            ['https://zube.io/'] = {
-                ['priority'] = 1,
-                ['takeover'] = 'always',
-            },
-            ['https://github.com/'] = {
-                ['priority'] = 1,
-                ['takeover'] = 'always',
-            },
-        }
-    }
-end
+require 'firenvim'
