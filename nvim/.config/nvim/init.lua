@@ -8,7 +8,7 @@ local home = os.getenv('HOME') .. '/'
 
 require 'plugins'
 
-opt('o', 'termguicolors', false)
+opt('o', 'termguicolors', true)
 opt('o', 'background', 'light')
 opt('o', 'lazyredraw', true)
 opt('o', 'hidden', true)
@@ -49,11 +49,6 @@ opt('o', 'directory', home .. '.local/share/nvim/swap,/tmp')
 opt('o', 'undodir', home .. '.local/share/nvim/undo,/tmp')
 opt('o', 'backupdir', home .. '.local/share/nvim/backup,/tmp')
 
-
-cmd[[colorscheme dim]]
-cmd[[hi SignColumn ctermfg=1 ctermbg=0]]
--- cmd[[hi VertSplit ctermfg=1 ctermbg=8]]
-
 g.mapleader = ','
 g.maplocalleader = '\\'
 
@@ -71,8 +66,8 @@ map('n', '<leader>r', ':luafile $HOME/.config/nvim/init.lua<CR>', { silent = tru
 
 -- require 'indent-blankline'
 -- require 'neovide'
--- require 'base16vim'
 require 'fold'
+require 'base16vim'
 require 'netrw'
 require 'suda'
 require 'spelunker'

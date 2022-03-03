@@ -85,9 +85,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # start terminal
-set $term foot
-bindsym $mod+Return exec $term
-# exec --no-startup-id foot --server
+bindsym $mod+Return exec kitty --single-instance
 
 # start filemanager
 set $filemanager thunar

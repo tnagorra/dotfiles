@@ -10,8 +10,8 @@ end
 
 autocmd {
     fold_color = {
-        { 'Colorscheme', '*', 'highlight Folded guibg=NONE gui=italic cterm=italic ctermbg=NONE' },
-        { 'Colorscheme', '*', 'highlight Comment gui=italic cterm=italic' },
+        { 'Colorscheme', '*', 'highlight Folded guibg=NONE gui=italic' },
+        { 'Colorscheme', '*', 'highlight Comment gui=italic' },
     };
     yank_color = {
         { 'TextYankPost', '*', 'lua vim.highlight.on_yank {on_visual = false, timeout=300}' },
