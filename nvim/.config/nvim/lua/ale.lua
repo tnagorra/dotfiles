@@ -9,8 +9,8 @@ g.ale_lint_on_text_changed = 1
 g.ale_linters_explicit = 1
 
 g.ale_sign_column_always = 1
-g.ale_sign_error = '✱ '
-g.ale_sign_warning = '✳ '
+g.ale_sign_error = '✖ '
+g.ale_sign_warning = '× '
 
 g.ale_javascript_eslint_use_global = 1
 g.ale_javascript_eslint_executable = 'eslint_d'

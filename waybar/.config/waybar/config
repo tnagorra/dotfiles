@@ -5,6 +5,7 @@
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
+        // "wlr/taskbar",
         "sway/window"
     ],
     "modules-center": [
@@ -22,6 +23,12 @@
         // "idle_inhibitor",
         "tray"
     ],
+    // "wlr/taskbar": {
+    //     "on-click": "activate"
+    // },
+    "sway/window": {
+        "icon": false
+    },
     "sway/workspaces": {
         "disable-scroll": true
     },

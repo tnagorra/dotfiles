@@ -125,8 +125,9 @@ bindsym Shift+XF86MonBrightnessDown exec ddcutil setvcp 10 - 20
 set $screentoggler ~/.config/sway/screentoggle.sh eDP-1
 bindsym XF86Display exec $screentoggler
 
-output HDMI-A-1 pos 0 0
-output eDP-1 pos 1920 0 scale 2
+# output HDMI-A-1 pos 0 0
+# output eDP-1 pos 1920 0 scale 2
+output eDP-1 pos 0 0 scale 2
 
 # Media player controls
 bindsym $mod+Down exec playerctl play-pause     # XF86AudioPause
@@ -181,17 +182,18 @@ bar {
 }
 
 # colors
+set $black #000000
 set $white #37474F
-set $gray #ffffff
+set $gray #888888
 set $blue #03A9F4
 set $green #8BC34A
 set $red #f44336
 # class                 border  bground text    indicator child_border
-client.focused          $blue   $blue   $white  $green  $blue
-client.focused_inactive $gray   $gray   $white  $gray   $gray
-client.unfocused        $gray   $gray   $white  $white  $gray
-client.urgent           $red    $red    $white  $red    $red
-client.placeholder      $gray   $gray   $white  $gray   $gray
+client.focused          $blue   $blue   $black  $green  $blue
+client.focused_inactive $gray   $gray   $black  $gray   $gray
+client.unfocused        $gray   $gray   $black  $white  $gray
+client.urgent           $red    $red    $black  $red    $red
+client.placeholder      $gray   $gray   $black  $gray   $gray
 client.background       $white
 
 # Hide titlebar

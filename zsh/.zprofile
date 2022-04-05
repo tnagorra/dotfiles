@@ -32,8 +32,8 @@ fi
 export GTK_THEME=Adwaita:light
 
 # Qt
-export QT_SELECT=5
-export QT_QPA_PLATFORMTHEME=gtk2
+# export QT_SELECT=5
+# export QT_QPA_PLATFORMTHEME=gtk2
 # export QT_PLUGIN_PATH=/usr/lib/qt/plugins
 # export QT_STYLE_OVERRIDE=adwaita
 
@@ -42,7 +42,7 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     if command -v sway &> /dev/null; then
         export XDG_CURRENT_DESKTOP=sway
         export XDG_SESSION_TYPE=wayland
-        export QT_QPA_PLATFORM="wayland;xcb"
+        # export QT_QPA_PLATFORM="wayland;xcb"
         export CLUTTER_BACKEND=wayland
         export SDL_VIDEODRIVER=wayland
         export GDK_BACKEND=wayland

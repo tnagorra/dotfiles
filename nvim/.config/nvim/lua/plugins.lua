@@ -28,6 +28,11 @@ return require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
 
     -- misc
+    use {'nvim-treesitter/nvim-treesitter'}
+    use {'nvim-orgmode/orgmode', config = function()
+        require('orgmode').setup{}
+    end}
+
     use 'AndrewRadev/qftools.vim'
     use {
         'glacambre/firenvim',
