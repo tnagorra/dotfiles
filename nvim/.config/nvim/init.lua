@@ -1,53 +1,53 @@
 local g = vim.g
-local cmd = vim.cmd
+local opt = vim.opt
 
 local utils = require 'utils'
-local opt, map, autocmd = utils.opt, utils.map, utils.autocmd
+local map = utils.map
 
 local home = os.getenv('HOME') .. '/'
 
 require 'plugins'
 
-opt('o', 'termguicolors', true)
-opt('o', 'background', 'light')
-opt('o', 'lazyredraw', true)
-opt('o', 'hidden', true)
-opt('w', 'foldlevel', 99)
-opt('w', 'foldmethod', 'indent')
-opt('w', 'scroll', 10)
-opt('w', 'scrolloff', 5)
-opt('o', 'scrolljump', 5)
-opt('o', 'mouse', 'a')
-opt('o', 'ignorecase', true)
-opt('o', 'smartcase', true)
-opt('o', 'splitbelow', true)
-opt('o', 'splitright', true)
-opt('b', 'undofile', true)
-opt('o', 'backup', true)
-opt('b', 'tabstop', 4)
-opt('b', 'shiftwidth', 4)
-opt('b', 'softtabstop', 4)
-opt('b', 'expandtab', true)
-opt('b', 'smartindent', true)
-opt('w', 'wrap', false)
-opt('w', 'breakindent', true)
-opt('o', 'showbreak', '…')
-opt('o', 'pumblend', 20)
-opt('o', 'showmatch', true)
-opt('w', 'number', true)
-opt('o', 'shortmess', 'filnxtToOrm')
-opt('w', 'list', true)
-opt('w', 'listchars', 'tab:› ,trail:•,extends:⭑,nbsp:.')
-opt('o', 'wildmode', 'list:longest')
-opt('o', 'wildignore', '*/.git,*/node_modules,*/coverage,*/__pycache__')
-opt('o', 'wildignorecase', true)
-opt('w', 'statusline', ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L')
-opt('o', 'rulerformat', '%30(%=:b%n%y%m%r%w %l,%c%V %P%)')
-opt('w', 'fillchars', 'vert: ,fold: ')
+opt.termguicolors = true
+opt.background = 'light'
+opt.lazyredraw = true
+opt.hidden = true
+opt.foldlevel = 99
+opt.foldmethod = 'indent'
+opt.scroll = 10
+opt.scrolloff = 5
+opt.scrolljump = 5
+opt.mouse = 'a'
+opt.ignorecase = true
+opt.smartcase = true
+opt.splitbelow = true
+opt.splitright = true
+opt.undofile = true
+opt.backup = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.expandtab = true
+opt.smartindent = true
+opt.wrap = false
+opt.breakindent = true
+opt.showbreak = '⭑'
+opt.pumblend = 20
+opt.showmatch = true
+opt.number = true
+opt.shortmess = 'filnxtToOrm'
+opt.list = true
+opt.listchars = 'tab:› ,trail:•,extends:…,nbsp:.'
+opt.wildmode = 'list:longest'
+opt.wildignore = '*/.git,*/node_modules,*/coverage,*/__pycache__'
+opt.wildignorecase = true
+opt.statusline = ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L'
+opt.rulerformat = '%30(%=:b%n%y%m%r%w %l,%c%V %P%)'
+opt.fillchars = 'vert: ,fold: '
 
-opt('o', 'directory', home .. '.local/share/nvim/swap,/tmp')
-opt('o', 'undodir', home .. '.local/share/nvim/undo,/tmp')
-opt('o', 'backupdir', home .. '.local/share/nvim/backup,/tmp')
+opt.directory = home .. '.local/share/nvim/swap,/tmp'
+opt.undodir = home .. '.local/share/nvim/undo,/tmp'
+opt.backupdir = home .. '.local/share/nvim/backup,/tmp'
 
 g.mapleader = ','
 g.maplocalleader = '\\'

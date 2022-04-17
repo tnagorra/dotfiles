@@ -42,6 +42,7 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     if command -v sway &> /dev/null; then
         export XDG_CURRENT_DESKTOP=sway
         export XDG_SESSION_TYPE=wayland
+        export QT_QPA_PLATFORM=wayland
         # export QT_QPA_PLATFORM="wayland;xcb"
         export CLUTTER_BACKEND=wayland
         export SDL_VIDEODRIVER=wayland

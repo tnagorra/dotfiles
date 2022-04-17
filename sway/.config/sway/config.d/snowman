@@ -1,1 +1,3 @@
 # vim: filetype=config
+
+output eDP-1 pos 0 0 scale 2

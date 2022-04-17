@@ -125,10 +125,6 @@ bindsym Shift+XF86MonBrightnessDown exec ddcutil setvcp 10 - 20
 set $screentoggler ~/.config/sway/screentoggle.sh eDP-1
 bindsym XF86Display exec $screentoggler
 
-# output HDMI-A-1 pos 0 0
-# output eDP-1 pos 1920 0 scale 2
-output eDP-1 pos 0 0 scale 2
-
 # Media player controls
 bindsym $mod+Down exec playerctl play-pause     # XF86AudioPause
 bindsym $mod+Right exec playerctl next          # XF86AudioNext

@@ -1,11 +1,12 @@
 local g = vim.g
+local opt = vim.opt
 local utils = require 'utils'
 
-local opt, map, autocmd = utils.opt, utils.map, utils.autocmd
+local autocmd = utils.autocmd
 
 if g.started_by_firenvim then
-    opt('o', 'laststatus', 0)
-    opt('w', 'number', false)
+    opt.laststatus = 0
+    opt.number = false
     autocmd {
         firenvim = {
             { 'BufEnter', 'zube.io_*.txt', 'set filetype=markdown' },
