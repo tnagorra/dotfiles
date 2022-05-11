@@ -28,6 +28,7 @@ return require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
 
     -- misc
+    use { 'jamessan/vim-gnupg' }
     use {'nvim-treesitter/nvim-treesitter'}
     use {'nvim-orgmode/orgmode', config = function()
         require('orgmode').setup{}

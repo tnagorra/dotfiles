@@ -1,22 +1,22 @@
--- Load custom tree-sitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
+local utils = require 'utils'
+local autocmd = utils.autocmd
 
--- Tree-sitter configuration
 require'nvim-treesitter.configs'.setup {
-  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+    disable = {'org'},
+    additional_vim_regex_highlighting = {'org'},
   },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
+  ensure_installed = {'org'},
 }
 
 require('orgmode').setup({
     org_agenda_files = {'~/Notes/org/*'},
     org_default_notes_file = '~/Notes/org/refile.org',
-    org_todo_keywords = {'TODO(t)', 'IN_PROGRESS(i)', '|', 'DONE(d)'},
-    org_hide_leading_stars = true,
+    org_todo_keywords = { 'TODO', 'NEXT', '|', 'DONE', 'DELEGATED' },
+    org_indent_mode = false,
+    -- org_hide_leading_stars = true,
     org_hide_empasis_markers = true,
     org_ellipsis = '…',
     org_agenda_templates = {
@@ -32,3 +32,12 @@ require('orgmode').setup({
         },
     },
 })
+
+
+autocmd {
+    orgmode = {
+        { 'FileType', 'org', 'setlocal foldlevel=99' },
+        { 'FileType', 'org', 'setlocal conceallevel=2' },
+        { 'FileType', 'org', 'setlocal concealcursor=nc' },
+    };
+}

@@ -12,3 +12,5 @@ function day() {
 
 alias vim="nvim"
 alias ls="ls --color"
+
+alias ssh="TERM=screen ssh"

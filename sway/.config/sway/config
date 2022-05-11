@@ -200,7 +200,7 @@ focus_follows_mouse no
 
 # Assign programs to workspace
 assign [app_id="thunderbird"] 9
-assign [class="Slack"] 10
+assign [instance="slack"] 10
 
 for_window [title="VLSub 0.11.1"] floating enable
 for_window [title="Firefox Developer Edition — Sharing Indicator"] floating enable, sticky enable
