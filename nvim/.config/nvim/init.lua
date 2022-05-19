@@ -1,13 +1,12 @@
 local g = vim.g
 local opt = vim.opt
-
-local utils = require 'utils'
-local map = utils.map
+local map = vim.keymap.set
 
 local home = os.getenv('HOME') .. '/'
 
 require 'plugins'
 
+opt.laststatus = 3
 opt.termguicolors = true
 opt.background = 'light'
 opt.lazyredraw = true

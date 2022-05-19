@@ -1,5 +1,4 @@
-local utils = require 'utils'
-local map = utils.map
+local map = vim.keymap.set
 local cmd = vim.cmd
 
 map('n', '<leader>f', ':Files<CR>')
@@ -12,10 +11,10 @@ function GetRelativeWdProjectPath()
     let relative_project_path = system('realpath --relative-to="'.getcwd().'" "'.project_path.'"')
     return trim(relative_project_path)
 endfunction
-
 ]]
 
 -- Override fzf command to pass different options
+-- TODO: create user command
 cmd(([[
 command! -bang -nargs=* Rg call fzf#vim#grep(
     'rg --column --line-number --no-heading --color=always --case-sensitive -- '.<q-args>.' "'.GetRelativeWdProjectPath().'"',
@@ -24,5 +23,3 @@ command! -bang -nargs=* Rg call fzf#vim#grep(
     <bang>0
 )
 ]]):gsub('\n', ' '))
-
-print()

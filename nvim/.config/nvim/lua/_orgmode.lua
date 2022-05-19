@@ -1,6 +1,5 @@
 require('orgmode').setup_ts_grammar()
-local utils = require 'utils'
-local autocmd = utils.autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -34,10 +33,15 @@ require('orgmode').setup({
 })
 
 
-autocmd {
-    orgmode = {
-        { 'FileType', 'org', 'setlocal foldlevel=99' },
-        { 'FileType', 'org', 'setlocal conceallevel=2' },
-        { 'FileType', 'org', 'setlocal concealcursor=nc' },
-    };
-}
+autocmd('FileType', {
+        pattern = 'org',
+        command = 'setlocal foldlevel=99'
+})
+autocmd('FileType', {
+        pattern = 'org',
+        command = 'setlocal conceallevel=2'
+})
+autocmd('FileType', {
+        pattern = 'org',
+        command = 'setlocal concealcursor=nc'
+})

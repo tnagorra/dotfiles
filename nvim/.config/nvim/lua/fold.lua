@@ -1,5 +1,18 @@
-local utils = require 'utils'
-local opt, autocmd = utils.opt, utils.autocmd
+local opt = vim.opt
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd('Colorscheme', {
+    pattern = '*',
+    command = 'highlight Folded guibg=NONE gui=italic',
+})
+autocmd('Colorscheme', {
+    pattern = '*',
+    command = 'highlight Comment gui=italic',
+})
+autocmd('TextYankPost', {
+    pattern = '*',
+    callback = function() vim.highlight.on_yank {on_visual = false, timeout=300} end,
+})
 
 function _G.clean_fold_text()
     local line = vim.v.foldstart
@@ -7,15 +20,4 @@ function _G.clean_fold_text()
     local collapsed_lines = vim.v.foldend - vim.v.foldstart + 1
     return line_text .. ' ... ' .. collapsed_lines .. ' lines'
 end
-
-autocmd {
-    fold_color = {
-        { 'Colorscheme', '*', 'highlight Folded guibg=NONE gui=italic' },
-        { 'Colorscheme', '*', 'highlight Comment gui=italic' },
-    };
-    yank_color = {
-        { 'TextYankPost', '*', 'lua vim.highlight.on_yank {on_visual = false, timeout=300}' },
-    };
-}
-
-opt('w', 'foldtext', 'v:lua.clean_fold_text()')
+opt.foldtext = 'v:lua.clean_fold_text()'
