@@ -18,4 +18,4 @@ exec_always {
 }
 
 output eDP-1 pos 0 0
-output HDMI-A-1 mode 1280x720 pos 1360 768
+# koutput HDMI-A-1 mode 1280x720 pos 1360 768

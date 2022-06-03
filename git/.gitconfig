@@ -29,3 +29,5 @@
 	autoUpdate = true
 [include]
 	path = ~/.gitconfig.local
+[diff "gpg"]
+	textconv = gpg --no-tty --decrypt

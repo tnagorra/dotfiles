@@ -17,7 +17,7 @@ endfunction
 -- TODO: create user command
 cmd(([[
 command! -bang -nargs=* Rg call fzf#vim#grep(
-    'rg --column --line-number --no-heading --color=always --case-sensitive -- '.<q-args>.' "'.GetRelativeWdProjectPath().'"',
+    'rg --column --line-number --color=always --case-sensitive '.<q-args>.' "'.GetRelativeWdProjectPath().'"',
     1,
     fzf#vim#with_preview(),
     <bang>0

@@ -1,6 +1,10 @@
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use 'nvim-lua/plenary.nvim'
+
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'lewis6991/gitsigns.nvim'
 
     -- gui
     use 'chriskempson/base16-vim'
@@ -8,8 +12,8 @@ return require('packer').startup(function()
     -- use {'lukas-reineke/indent-blankline.nvim', branch='lua'}
 
     -- git
-    use 'tpope/vim-fugitive'
-    use 'mhinz/vim-signify'
+    -- use 'tpope/vim-fugitive'
+    -- use 'mhinz/vim-signify'
 
     -- file-system
     use 'junegunn/fzf'
@@ -23,7 +27,7 @@ return require('packer').startup(function()
     use 'kamykn/spelunker.vim'
 
     -- language
-    use 'w0rp/ale'
+    -- use 'w0rp/ale'
     use 'npxbr/glow.nvim'
     use 'neovim/nvim-lspconfig'
 
