@@ -247,11 +247,12 @@ exec --no-startup-id mako
 exec --no-startup-id wl-paste -t text --watch clipman store
 
 # Turn off screen and Sleep after certain timeout
-set $screen_disable_after 1200
-set $lock_after 2400
+set $screen_disable_after 300
+set $lock_after 400
 exec --no-startup-id swayidle \
     timeout $screen_disable_after 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    timeout $lock_after 'systemctl suspend, mode default' before-sleep $locker
+    timeout $lock_after 'systemctl suspend, mode "default"' \
+    before-sleep $locker
 
 # set $sound_dir "/usr/share/sounds/freedesktop/stereo"
 # bindsym $mod+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')

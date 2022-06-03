@@ -63,6 +63,20 @@ map('', 'k', 'v:count == 0 ? "gk" : "k"', { silent = true, expr = true })
 map('n', '<leader>c', ':e $HOME/.config/nvim/init.lua<CR>', { silent = true })
 map('n', '<leader>r', ':luafile $HOME/.config/nvim/init.lua<CR>', { silent = true })
 
+require 'treesitter'
+require 'lsp'
+
+require 'fold'
+require 'base16vim'
+require 'netrw'
+
+require 'suda'
+require 'spelunker'
+require 'dirvish'
+require '_neorg'
+require '_gpg'
+require '_vrc'
+
 local null_ls = require('null-ls')
 null_ls.setup({
     sources = {
@@ -83,18 +97,17 @@ null_ls.setup({
 })
 
 require('gitsigns').setup()
+require('dressing').setup({
+    input = {
+        enabled = true,
+    },
+})
 
--- require 'indent-blankline'
--- require 'neovide'
-require 'fold'
-require 'base16vim'
-require 'netrw'
-require 'suda'
-require 'spelunker'
-require 'ale'
-require 'lsp'
-require 'dirvish'
-require 'fzf'
-require 'firenvim'
-require '_orgmode'
-require '_gpg'
+require("focus").setup({
+    cursorline = false,
+    signcolumn = false,
+})
+
+require('telescope').load_extension('live_grep_raw')
+map('n', '<leader>f', ':lua require("telescope.builtin").find_files({ hidden = true })<CR>', { silent = true })
+map('n', '<leader>F', ':lua require("telescope").extensions.live_grep_raw.live_grep_raw()<CR>', { silent = true })

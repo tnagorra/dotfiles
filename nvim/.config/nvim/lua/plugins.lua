@@ -1,46 +1,78 @@
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'nvim-lua/plenary.nvim'
 
-    use 'jose-elias-alvarez/null-ls.nvim'
-    use 'lewis6991/gitsigns.nvim'
-
-    -- gui
-    use 'chriskempson/base16-vim'
-    use 'sheerun/vim-polyglot'
-    -- use {'lukas-reineke/indent-blankline.nvim', branch='lua'}
+    -- colorscheme
+    use 'RRethy/nvim-base16'
 
     -- git
-    -- use 'tpope/vim-fugitive'
-    -- use 'mhinz/vim-signify'
+    use 'lewis6991/gitsigns.nvim'
 
     -- file-system
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
     use 'justinmk/vim-dirvish'
     use 'lambdalisue/suda.vim'
     use 'tnagorra/wd-nvim'
-    -- use '~/Projects/personal/wd-nvim'
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-live-grep-raw.nvim',
+        }
+    }
+    -- use 'jamestthompson3/nvim-remote-containers'
+
+    -- use 'windwp/nvim-ts-autotag'
+    -- use 'AckslD/nvim-revJ.lua'
+    -- use 'bennypowers/nvim-regexplainer'
+
+    -- use {'nvim-orgmode/orgmode', config = function()
+    --     require('orgmode').setup{}
+    -- end}
+    -- use {
+    --     'glacambre/firenvim',
+    --     run = function() vim.fn['firenvim#install'](0) end
+    -- }
 
     -- spell check
     use 'kamykn/spelunker.vim'
 
     -- language
-    -- use 'w0rp/ale'
-    use 'npxbr/glow.nvim'
+    use 'sheerun/vim-polyglot'
     use 'neovim/nvim-lspconfig'
+    use 'nvim-treesitter/nvim-treesitter'
+    use {
+        'jose-elias-alvarez/null-ls.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+        }
+    }
+    use {
+        'nvim-neorg/neorg',
+        requires = {
+            'nvim-lua/plenary.nvim',
+        }
+    }
 
     -- misc
-    use { 'jamessan/vim-gnupg' }
-    use {'nvim-treesitter/nvim-treesitter'}
-    use {'nvim-orgmode/orgmode', config = function()
-        require('orgmode').setup{}
-    end}
-
+    use 'jamessan/vim-gnupg'
     use 'AndrewRadev/qftools.vim'
-    use {
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end
-    }
+    use 'diepm/vim-rest-console'
+    use 'beauwilliams/focus.nvim'
+    use 'stevearc/dressing.nvim'
+
 end)
+
+-- dap
+-- status line
+-- startup
+-- indent
+-- file explorer
+-- git
+-- comment
+-- motion
+-- project/session
+-- test
+-- autopair
+-- formatter
+-- rest.nvim
+-- zenmode
