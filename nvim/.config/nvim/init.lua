@@ -6,7 +6,7 @@ local home = os.getenv('HOME') .. '/'
 
 require 'plugins'
 
-opt.laststatus = 3
+-- opt.laststatus = 3
 opt.termguicolors = true
 opt.background = 'light'
 opt.lazyredraw = true
@@ -63,51 +63,15 @@ map('', 'k', 'v:count == 0 ? "gk" : "k"', { silent = true, expr = true })
 map('n', '<leader>c', ':e $HOME/.config/nvim/init.lua<CR>', { silent = true })
 map('n', '<leader>r', ':luafile $HOME/.config/nvim/init.lua<CR>', { silent = true })
 
-require 'treesitter'
-require 'lsp'
-
 require 'fold'
-require 'base16vim'
-require 'netrw'
-
-require 'suda'
-require 'spelunker'
-require 'dirvish'
-require '_neorg'
-require '_gpg'
-require '_vrc'
-
-local null_ls = require('null-ls')
-null_ls.setup({
-    sources = {
-        null_ls.builtins.code_actions.eslint_d,
-        null_ls.builtins.code_actions.proselint,
-        null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.diagnostics.flake8,
-        null_ls.builtins.diagnostics.luacheck,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.proselint,
-        null_ls.builtins.diagnostics.stylelint,
-        null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.eslint_d,
-        null_ls.builtins.formatting.lua_format,
-        null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.stylelint,
-    },
-})
-
-require('gitsigns').setup()
-require('dressing').setup({
-    input = {
-        enabled = true,
-    },
-})
-
-require("focus").setup({
-    cursorline = false,
-    signcolumn = false,
-})
-
-require('telescope').load_extension('live_grep_raw')
-map('n', '<leader>f', ':lua require("telescope.builtin").find_files({ hidden = true })<CR>', { silent = true })
-map('n', '<leader>F', ':lua require("telescope").extensions.live_grep_raw.live_grep_raw()<CR>', { silent = true })
+require '_gitsigns'
+require '_lspconfig'
+require '_netrw'
+require '_null-ls'
+require '_nvim-base16'
+require '_nvim-treesitter'
+require '_spelunker'
+require '_suda'
+require '_telescope'
+require '_vim-dirvish'
+require '_vim-gnupg'

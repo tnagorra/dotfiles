@@ -1,5 +1,5 @@
 # vim: filetype=config
 
 # output HDMI-A-1 pos 0 0
-output DP-3 pos 0 0
-output eDP-1 pos 1920 0 scale 2
+output eDP-1 pos 0 0 scale 2
+output DP-3 pos 1920 0

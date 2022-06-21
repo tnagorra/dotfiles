@@ -47,8 +47,7 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
         export CLUTTER_BACKEND=wayland
         export SDL_VIDEODRIVER=wayland
         export GDK_BACKEND=wayland
-        # NOTE: disabling for now because of popup problems
-        # export MOZ_ENABLE_WAYLAND=1 # enable wayland on mozilla firefox
+        export MOZ_ENABLE_WAYLAND=1 # enable wayland on mozilla firefox
         exec sway
     else
         exec startx
