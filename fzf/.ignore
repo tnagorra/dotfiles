@@ -17,5 +17,7 @@ __pycache__
 android
 coverage
 ios
-media/
+media
 node_modules
+
+*.sql

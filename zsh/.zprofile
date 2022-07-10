@@ -7,10 +7,12 @@ export GOPATH="$HOME/.local/lib/go"
 
 # Java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djbre.popupwindow.settype=false'
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Android
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+export ANDROID_SDK_ROOT=$HOME/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # FZF
 # export PATH="$PATH:/$HOME/.fzf/bin"
@@ -18,7 +20,7 @@ export FZF_DEFAULT_COMMAND="rg -i --files --no-ignore-vcs --follow --hidden 2> /
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Neovide
-export NeovideMultiGrid='true'
+# export NeovideMultiGrid='true'
 
 # PyEnv
 export PATH="$PYENV_ROOT/bin:$PATH"
