@@ -1,5 +1,27 @@
 # vim: filetype=config
 
-# output HDMI-A-1 pos 0 0
-output eDP-1 pos 0 0 scale 2
-output DP-3 pos 1920 0
+set $dock-display "Dell Inc. DELL S2421HN 2KH1W13"
+set $laptop-display "California Institute of Technology 0x1405 Unknown"
+
+set $right-display $laptop-display
+set $left-display $dock-display
+
+# Configure output scales
+output $laptop-display scale 2
+
+# Configure output positions
+output $left-display pos 0 0
+output $right-display pos 1920 0
+
+# Bind workspace to outputs
+workspace 5 output $left-display
+workspace 6 output $left-display
+workspace 7 output $left-display
+workspace 8 output $left-display
+workspace 9 output $left-display
+workspace 10 output $left-display
+
+# Assign programs to workspace
+assign [instance="logseq"] 8
+assign [app_id="thunderbird"] 9
+assign [instance="slack"] 10

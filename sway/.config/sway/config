@@ -104,10 +104,9 @@ bindsym Shift+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(
 bindsym Ctrl+Print exec grim -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp -d) - | wl-copy
 
 # Pulse Audio controls
-set $vol_sink $(pactl list short sinks | grep RUNNING | cut -f1)
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $vol_sink +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume $vol_sink -2%
-bindsym XF86AudioMute exec pactl set-sink-mute $vol_sink toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Mute microphone
 set $micmuter ~/.config/sway/micmute.sh
@@ -198,16 +197,11 @@ default_border pixel 2
 # Don't change focus with mouse
 focus_follows_mouse no
 
-# Assign programs to workspace
-assign [app_id="thunderbird"] 9
-assign [instance="slack"] 10
-
 for_window [title="VLSub 0.11.1"] floating enable
 for_window [title="Firefox Developer Edition — Sharing Indicator"] floating enable, sticky enable
 
 # Increase borders for non-wayland windows
 for_window [shell="^((?!xdg_shell).)*$"] border pixel 6
-
 
 # Hide borders when only one window is present
 hide_edge_borders smart
@@ -242,6 +236,7 @@ input "type:keyboard" {
 
 # Start notification daemon
 exec --no-startup-id mako
+bindsym $mod+period exec makoctl dismiss -a
 
 # Clipboard manager
 exec --no-startup-id wl-paste -t text --watch clipman store

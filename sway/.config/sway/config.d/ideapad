@@ -3,19 +3,5 @@
 # Disable touch screen
 exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled
 
-# Start safeeyes
-# exec --no-startup-id safeeyes
-
-# Set theme in gsettings
-# set $gtk3theme Breeze
-# set $icontheme Breeze
-# set $cursortheme Breeze
-# set $gnome-schema org.gnome.desktop.interface
-# exec_always {
-#     gsettings set $gnome-schema gtk-theme $gtk3theme
-#     gsettings set $gnome-schema icon-theme $icontheme
-#     gsettings set $gnome-schema cursor-theme $cursortheme
-# }
-
+# Configure outputs
 output eDP-1 pos 0 0
-# koutput HDMI-A-1 mode 1280x720 pos 1360 768

@@ -19,15 +19,11 @@ def reload_neovim_sessions(colorscheme_file):
         nvim.command(f'source {colorscheme_file}')
 
     def _get_all_instances():
-        instances = []
+        tmpdir = environ.get('TMPDIR', '/run/user/1000/')
 
-        tmpdir = environ.get('TMPDIR', '/tmp')
+        folders = [f for f in listdir(tmpdir) if f.startswith('nvim.') and f.endswith('.0')]
 
-        folders = [f for f in listdir(tmpdir) if f.startswith('nvim')]
-        for folder in folders:
-            dc = listdir(join(tmpdir, folder))
-            if '0' in dc:
-                instances.append(join(tmpdir, folder, '0'))
+        instances = [join(tmpdir, folder) for folder in folders]
 
         return instances
 
@@ -59,7 +55,8 @@ def main():
             vimrc_background_file.write(vimrc_background_content)
 
         reload_neovim_sessions(vimrc_background_path)
-    except OSError:
+    except OSError as e:
+        print(e);
         raise RuntimeError(f'Could not save file: {vimrc_background_path}')
 
 try:

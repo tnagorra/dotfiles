@@ -22,3 +22,6 @@ border-color=#0077ae
 [urgency=high]
 background-color=#f53c3c
 border-color=#e63b2b
+
+[mode=do-not-disturb]
+invisible=1

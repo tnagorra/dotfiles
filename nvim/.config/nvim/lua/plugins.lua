@@ -1,74 +1,131 @@
--- TODO:
--- dap
--- status line
--- startup
--- indent
--- file explorer
--- git
--- comment
--- motion
--- project/session
--- test
--- autopair
--- formatter
--- rest.nvim
--- zenmode
+local fn = vim.fn
 
-return require('packer').startup(function()
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-
-    -- colorscheme
-    use 'RRethy/nvim-base16'
-
-    -- git
-    use 'lewis6991/gitsigns.nvim'
-
-    -- file-system
-    use 'justinmk/vim-dirvish'
-    use 'lambdalisue/suda.vim'
-    use 'tnagorra/wd-nvim'
-    use {
+return {
+    {
+        -- Manage external dependencies
+        'williamboman/mason.nvim',
+        build = ':MasonUpdate', -- :MasonUpdate updates registry contents
+        config = function()
+            require('plugin-configs/_mason')
+        end,
+    },
+    {
+        -- Manage external dependencies for lsp
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+            require('plugin-configs/_mason-lspconfig')
+        end,
+        dependencies = {
+            'williamboman/mason.nvim',
+        }
+    },
+    {
+        'mfussenegger/nvim-lint',
+        config = function()
+            require('plugin-configs/_nvim-lint')
+        end,
+    },
+    {
+        -- file manager
+        'justinmk/vim-dirvish',
+        config = function()
+            require('plugin-configs/_vim-dirvish')
+        end,
+    },
+    {
+        -- sudo support
+        'lambdalisue/suda.vim',
+        config = function()
+            require('plugin-configs/_suda')
+        end,
+    },
+    {
+        -- warp directory
+        'tnagorra/wd-nvim'
+    },
+    {
+        -- fuzzy search
         'nvim-telescope/telescope.nvim',
-        requires = {
+        dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope-live-grep-raw.nvim',
-        }
-    }
-
-    -- spell check
-    use 'kamykn/spelunker.vim'
-
-    -- language
-    use 'sheerun/vim-polyglot'
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-treesitter/nvim-treesitter'
-    use {
-        'jose-elias-alvarez/null-ls.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-        }
-    }
-    use {
-        'nvim-neorg/neorg',
-        requires = {
-            'nvim-lua/plenary.nvim',
-        }
-    }
-
-    -- misc
-    use 'jamessan/vim-gnupg'
-    use 'AndrewRadev/qftools.vim'
-
-    -- use 'diepm/vim-rest-console'
-    -- use 'beauwilliams/focus.nvim'
-    -- use 'stevearc/dressing.nvim'
-    -- use 'jamestthompson3/nvim-remote-containers'
-    -- use 'windwp/nvim-ts-autotag'
-    -- use 'AckslD/nvim-revJ.lua'
-    -- use 'bennypowers/nvim-regexplainer'
-    -- use {
-    --     'glacambre/firenvim',
-    --     run = function() vim.fn['firenvim#install'](0) end
-    -- }
-end)
+        },
+        config = function()
+            require('plugin-configs/_telescope')
+        end,
+    },
+    {
+        -- git
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('plugin-configs/_gitsigns')
+        end,
+    },
+    {
+        -- spell check
+        'kamykn/spelunker.vim',
+        config = function()
+            require('plugin-configs/_spelunker')
+        end,
+    },
+    {
+        -- multiple language support
+        'sheerun/vim-polyglot',
+        init = function()
+            require('plugin-configs/_polyglot')
+        end,
+    },
+    {
+        -- lsp support
+        'neovim/nvim-lspconfig',
+        config = function()
+            require('plugin-configs/_lspconfig')
+        end,
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim',
+        },
+    },
+    {
+        -- treesitter support
+        'nvim-treesitter/nvim-treesitter',
+        config = function()
+            require('plugin-configs/_nvim-treesitter')
+        end,
+    },
+    {
+        'toppair/peek.nvim',
+        build = 'deno task --quiet build:fast',
+        event = { 'BufRead', 'BufNewFile' },
+        config = function()
+            require('peek').setup()
+            vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+            vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+        end,
+    },
+    {
+        -- misc
+        'AndrewRadev/qftools.vim'
+    },
+    {
+        -- colorscheme
+        'RRethy/nvim-base16',
+        config = function()
+            require('plugin-configs/_nvim-base16')
+        end,
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        enabled=false,
+        config = function()
+            require('plugin-configs/_lualine')
+        end,
+        dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+    },
+    {
+        -- show indent lines
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('plugin-configs/_indent-blankline')
+        end,
+    },
+}

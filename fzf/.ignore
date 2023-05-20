@@ -14,10 +14,9 @@
 .venv
 .zinit
 __pycache__
-android
 coverage
-ios
 media
 node_modules
-
+# ios
+# android
 *.sql

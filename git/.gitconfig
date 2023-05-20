@@ -11,7 +11,8 @@
 	prune = true
 	pruneTags = true
 [credential]
-	helper = cache --timeout=300
+    helper = store
+    # helper = cache --timeout=300
 [pull]
 	ff = only
 [diff]
@@ -24,6 +25,7 @@
 	ff = false
 [rebase]
 	stat = true
+	updateRefs = true
 [rerere]
 	enabled = true
 	autoUpdate = true
@@ -31,3 +33,5 @@
 	path = ~/.gitconfig.local
 [diff "gpg"]
 	textconv = gpg --no-tty --decrypt
+[safe]
+	directory = /code

@@ -5,50 +5,64 @@
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
-        // "wlr/taskbar",
-        "sway/window"
+        "sway/window",
     ],
     "modules-center": [
-        "temperature",
-        "cpu",
-        "disk",
-        "memory"
+        "clock",
     ],
     "modules-right": [
         "network",
+        "temperature",
+        "cpu",
+        "disk",
+        "memory",
+        "battery",
         "backlight",
         "pulseaudio",
-        "clock",
-        "battery",
-        // "idle_inhibitor",
-        "tray"
+        "idle_inhibitor",
+        "custom/mako",
+        "tray",
     ],
+    "custom/mako": {
+        "interval": 1,
+        "exec-if": "command -v makoctl",
+        "exec": "dnd-status.py",
+        "return-type": "json",
+        "on-click": "dnd.py",
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+        // "on-click": "dnd.py; pkill -SIGRTMIN+29 waybar",
+        // "signal": 29,
+    },
     // "wlr/taskbar": {
     //     "on-click": "activate"
     // },
     "sway/window": {
-        "icon": false
+        "icon": false,
     },
     "sway/workspaces": {
-        "disable-scroll": true
+        "disable-scroll": true,
     },
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        "format": "<span style=\"italic\">{}</span>",
     },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
-            "deactivated": ""
-        }
+            "deactivated": "",
+        },
     },
     "network": {
         // "interface": "auto", // (Optional)
-        "format-wifi": " {signalStrength}dBm {essid}",
+        "format-wifi": " {signaldBm}dBm {essid}",
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
         "format-linked": "No IP address",
         "format-disconnected": "No network",
-        "interval": 1
+        "interval": 1,
     },
     "pulseaudio": {
         "scroll-step": 2,
@@ -59,22 +73,22 @@
             "headphones": "",
             "handsfree": "",
             "headset": "",
-            "default": ["", "", "", ""]
+            "default": ["", "", "", ""],
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
     },
     "temperature": {
         "format": "{icon} {temperatureC}",
         "format-icons": ["", "", "", "", ""],
-        "critical-threshold": 80
+        "critical-threshold": 80,
     },
     "cpu": {
         "format": " {usage}",
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85
-        }
+            "critical": 85,
+        },
     },
     "disk": {
         "format": " {percentage_used}",
@@ -83,39 +97,39 @@
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85
-        }
+            "critical": 85,
+        },
     },
     "backlight": {
-        "format": " {percent}"
+        "format": " {percent}",
     },
     "memory": {
         "format": " {}",
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85
-        }
+            "critical": 85,
+        },
     },
     "clock": {
         "tooltip-format": "{:%Y-%m-%d | %H:%M}",
         "format-alt": "{:%Y-%m-%d %H:%M}",
-        "format": "{:%h %d %a %H:%M}"
+        "format": "{:%h %d %a %H:%M}",
     },
     "battery": {
         "states": {
             "good": 95,
             "warning": 30,
-            "critical": 25
+            "critical": 25,
         },
         "format": "{icon} {capacity}% {time}",
         // "format-alt": "{icon} {time}",
         "format-time": "{H}h{M}m",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
     },
     "tray": {
         // "icon-size": 21,
-        "spacing": 10
-    }
+        "spacing": 10,
+    },
 }
 // vim: set ft=jsonc:

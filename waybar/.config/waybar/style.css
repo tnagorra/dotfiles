@@ -31,17 +31,18 @@ window#waybar * {
 
 #workspaces button {
     border-radius: 0px;
-    border-top: 2px solid transparent;
     padding: 0 8px;
     background-color: unset;
     color: @white;
 }
 #workspaces button.visible {
+    border-bottom: 2px solid transparent;
     border-top: 2px solid @white;
     background-color: @gray;
     color: @black;
 }
 #workspaces button.focused {
+    border-bottom: 2px solid transparent;
     border-top: 2px solid @white;
     background-color: @primary;
     color: @white;
@@ -68,12 +69,12 @@ window#waybar * {
 #pulseaudio,
 #temperature,
 #disk,
-#tray {
+#tray,
+#custom-mako
+{
     padding: 0 8px;
     margin: 0 2px;
-    background-color: unset;
-    color: unset;
-    border-top: 2px solid transparent;
+    min-width: 20px;
 }
 
 #window {
@@ -82,10 +83,6 @@ window#waybar * {
 #network {
     color: @success;
 }
-#pulseaudio.muted,
-#network.disconnected {
-    color: @danger;
-}
 #clock {
     color: @primary-light;
 }
@@ -93,8 +90,15 @@ window#waybar * {
     background-color: @black;
 }
 
+#pulseaudio.muted,
+#network.disconnected {
+    color: @danger;
+}
+
 #battery.charging,
+#custom-mako.activated,
 #idle_inhibitor.activated {
+    border-bottom: 2px solid transparent;
     border-top: 2px solid @success;
 }
 
@@ -102,6 +106,7 @@ window#waybar * {
 #memory.warning,
 #disk.warning,
 #cpu.warning {
+    border-bottom: 2px solid transparent;
     border-top: 2px solid @warning;
 
     animation-name: blink;
@@ -115,6 +120,7 @@ window#waybar * {
 #memory.critical,
 #disk.critical,
 #cpu.critical {
+    border-bottom: 2px solid transparent;
     border-top: 2px solid @danger;
 
     animation-name: blink;
