@@ -2,7 +2,6 @@ local lspconfig = require('lspconfig')
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local map = vim.keymap.set
-local api = vim.api
 local lsp = vim.lsp
 local inspect = vim.inspect
 local bo = vim.bo
@@ -13,6 +12,7 @@ lspconfig.tsserver.setup {}
 lspconfig.graphql.setup {}
 lspconfig.bashls.setup {}
 -- lspconfig.cssmodules_ls.setup {}
+-- lspconfig.remark_ls.setup {}
 lspconfig.docker_compose_language_service.setup {}
 lspconfig.dockerls.setup {}
 lspconfig.eslint.setup {}

@@ -1,5 +1,7 @@
 local g = vim.g
 local opt = vim.opt
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
 local home = os.getenv('HOME') .. '/'
 
@@ -34,7 +36,7 @@ opt.shortmess = 'filnxtToOrm'
 opt.list = true
 opt.listchars = 'tab:› ,trail:•,extends:…,nbsp:.'
 opt.wildmode = 'list:longest'
-opt.wildignore = '*/.git,*/node_modules,*/coverage,*/__pycache__'
+opt.wildignore = '*/.git,*/coverage,*/__pycache__'
 opt.wildignorecase = true
 -- opt.laststatus = 3
 opt.statusline = ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L'
@@ -55,3 +57,13 @@ g.maplocalleader = '\\'
 -- Use filetype.lua instead of filetype.vim
 g.do_filetype_lua = 1
 g.did_load_filetypes = 0
+
+autocmd('FileType', {
+    group = augroup('MarkdownTabs', {}),
+    pattern = 'markdown',
+    callback = function()
+        opt.tabstop = 2
+        opt.shiftwidth = 2
+        opt.softtabstop = 2
+    end,
+})

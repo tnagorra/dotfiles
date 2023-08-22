@@ -62,13 +62,6 @@ return {
         end,
     },
     {
-        -- spell check
-        'kamykn/spelunker.vim',
-        config = function()
-            require('plugin-configs/_spelunker')
-        end,
-    },
-    {
         -- multiple language support
         'sheerun/vim-polyglot',
         init = function()
@@ -97,9 +90,7 @@ return {
         build = 'deno task --quiet build:fast',
         event = { 'BufRead', 'BufNewFile' },
         config = function()
-            require('peek').setup()
-            vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-            vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+            require('plugin-configs/_peek')
         end,
     },
     {
@@ -114,6 +105,14 @@ return {
         end,
     },
     {
+        -- show indent lines
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('plugin-configs/_indent-blankline')
+        end,
+    },
+    {
+        -- statusline
         'nvim-lualine/lualine.nvim',
         enabled=false,
         config = function()
@@ -122,10 +121,11 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
     },
     {
-        -- show indent lines
-        'lukas-reineke/indent-blankline.nvim',
+        -- spell check
+        'kamykn/spelunker.vim',
+        enabled=false,
         config = function()
-            require('plugin-configs/_indent-blankline')
+            require('plugin-configs/_spelunker')
         end,
     },
 }
