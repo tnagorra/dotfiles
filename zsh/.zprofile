@@ -31,11 +31,12 @@ fi
 
 # Gtk theme
 
-export GTK_THEME=Adwaita:light
+# export GTK_THEME=Adwaita:light
 
 # Qt
-# export QT_SELECT=5
-# export QT_QPA_PLATFORMTHEME=gtk2
+export QT_SELECT=5
+export QT_QPA_PLATFORMTHEME=gtk2
+# export QT_QPA_PLATFORMTHEME=qt5ct
 # export QT_PLUGIN_PATH=/usr/lib/qt/plugins
 # export QT_STYLE_OVERRIDE=adwaita
 

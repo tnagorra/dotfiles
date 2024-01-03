@@ -6,13 +6,48 @@ local lsp = vim.lsp
 local inspect = vim.inspect
 local bo = vim.bo
 local diagnostic = vim.diagnostic
+local fn = vim.fn
+local util = require('lspconfig/util')
+local env = vim.env
 
-lspconfig.pyright.setup {}
+
+local function get_python_path(workspace)
+    -- Use activated virtualenv.
+    if env.VIRTUAL_ENV then
+        return util.path.join(env.VIRTUAL_ENV, 'bin', 'python')
+    end
+
+    -- Find and use virtualenv via poetry in workspace directory.
+    local match = fn.glob(util.path.join(workspace, 'poetry.lock'))
+    if match ~= '' then
+        local venv = fn.trim(fn.system('poetry env info -p'))
+        return util.path.join(venv, 'bin', 'python')
+    end
+
+    -- Fallback to system Python.
+    return exepath('python3') or exepath('python') or 'python'
+end
+
+lspconfig.pyright.setup {
+    before_init = function(_, config)
+        config.settings.python.pythonPath = get_python_path(config.root_dir)
+    end
+}
+lspconfig.pylsp.setup {
+    settings = {
+        pylsp = {
+            configurationSources = {"flake8"},
+            plugins = {
+                flake8 = {
+                    enabled = true,
+                }
+            }
+        }
+    }
+}
 lspconfig.tsserver.setup {}
 lspconfig.graphql.setup {}
-lspconfig.bashls.setup {}
--- lspconfig.cssmodules_ls.setup {}
--- lspconfig.remark_ls.setup {}
+-- lspconfig.bashls.setup {}
 lspconfig.docker_compose_language_service.setup {}
 lspconfig.dockerls.setup {}
 lspconfig.eslint.setup {}

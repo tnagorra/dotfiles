@@ -3,6 +3,7 @@
 set $locker ~/.config/sway/swaylock.sh
 
 # Set modifier key
+# set $mod Mod4
 set $mod Mod4
 
 set $left h
@@ -111,7 +112,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 # Mute microphone
 set $micmuter ~/.config/sway/micmute.sh
 bindsym XF86AudioMicMute exec $micmuter
-bindsym $mod+q exec $micmuter
+bindsym $mod+m exec $micmuter
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -perceived -inc 5 -time 0
@@ -219,7 +220,7 @@ gaps inner 4
 gaps outer 4
 
 # Set wallpapers
-set $wallpaper ~/Pictures/*
+set $wallpaper ~/Pictures/Wallpapers/*
 output * background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill"
 
@@ -231,7 +232,7 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 # Change caps-lock to ESC
 input "type:keyboard" {
     xkb_layout us
-    xkb_options ctrl:nocaps
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
 }
 
 # Start notification daemon

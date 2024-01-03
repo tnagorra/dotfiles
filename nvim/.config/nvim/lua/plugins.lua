@@ -107,6 +107,7 @@ return {
     {
         -- show indent lines
         'lukas-reineke/indent-blankline.nvim',
+        enabled=false,
         config = function()
             require('plugin-configs/_indent-blankline')
         end,
@@ -128,4 +129,7 @@ return {
             require('plugin-configs/_spelunker')
         end,
     },
+    {
+        'jamessan/vim-gnupg',
+    }
 }

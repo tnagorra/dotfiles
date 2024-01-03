@@ -1,5 +1,5 @@
 # BEGIN_KITTY_THEME
-# Gruvbox Dark
+# Gruvbox Light
 include current-theme.conf
 # END_KITTY_THEME
 
@@ -20,6 +20,7 @@ tab_separator " | "
 tab_bar_edge top
 
 map ctrl+shift+n new_os_window_with_cwd
+map ctrl+tab no_op
 
 map ctrl+shift+equal change_font_size current +2.0
 map ctrl+shift+plus change_font_size current +2.0
