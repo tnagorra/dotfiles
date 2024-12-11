@@ -1,28 +1,14 @@
 # vim: filetype=config
 
-set $dock-display "Dell Inc. DELL S2421HN 2KH1W13"
-set $laptop-display "California Institute of Technology 0x1405 Unknown"
-
-set $left-display $dock-display
-set $right-display $laptop-display
-
-
-# Configure output scales
-output $laptop-display scale 2
-
-# Configure output positions
-output $left-display pos 0 0
-output $right-display pos 1920 0
-
-# Bind workspace to outputs
-workspace 5 output $right-display
-workspace 6 output $right-display
-workspace 7 output $right-display
-workspace 8 output $right-display
-workspace 9 output $right-display
-workspace 10 output $right-display
-
 # Assign programs to workspace
-assign [instance="logseq"] 8
+assign [instance="logseq"] 1
 assign [app_id="thunderbird"] 9
 assign [instance="slack"] 10
+
+# Float certain applications
+for_window [title="Firefox Developer Edition - Choose User Profile"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [app_id="nwg-displays"] floating enable
+
+include ~/.config/sway/outputs
+include ~/.config/sway/workspaces

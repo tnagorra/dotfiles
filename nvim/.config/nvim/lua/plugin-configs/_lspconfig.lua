@@ -45,13 +45,36 @@ lspconfig.pylsp.setup {
         }
     }
 }
-lspconfig.tsserver.setup {}
+lspconfig.denols.setup {
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+}
+local mason_registry = require('mason-registry')
+local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+lspconfig.ts_ls.setup {
+  root_dir = lspconfig.util.root_pattern("package.json"),
+  single_file_support = false,
+  init_options = {
+      plugins = {
+          {
+              name = '@vue/typescript-plugin',
+              location = vue_language_server_path,
+              languages = { 'vue' },
+          },
+      },
+  },
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+}
 lspconfig.graphql.setup {}
--- lspconfig.bashls.setup {}
+lspconfig.bashls.setup {}
 lspconfig.docker_compose_language_service.setup {}
 lspconfig.dockerls.setup {}
 lspconfig.eslint.setup {}
 lspconfig.html.setup {}
+lspconfig.cssmodules_ls.setup {
+    init_options = {
+        camelCase = true
+    }
+}
 lspconfig.jsonls.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.sqlls.setup {}
@@ -60,7 +83,9 @@ lspconfig.stylelint_lsp.setup {
         'css', 'less', 'scss', 'sugarss', 'wxss',
     },
 }
+
 lspconfig.yamlls.setup {}
+lspconfig.volar.setup {}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

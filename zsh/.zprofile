@@ -35,18 +35,17 @@ fi
 
 # Qt
 export QT_SELECT=5
-export QT_QPA_PLATFORMTHEME=gtk2
-# export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=qt5ct
+# export QT_QPA_PLATFORMTHEME=gtk2
 # export QT_PLUGIN_PATH=/usr/lib/qt/plugins
 # export QT_STYLE_OVERRIDE=adwaita
 
-# Sway or StartX
+# sway or StartX
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     if command -v sway &> /dev/null; then
         export XDG_CURRENT_DESKTOP=sway
         export XDG_SESSION_TYPE=wayland
-        # export QT_QPA_PLATFORM=wayland
-        # export QT_QPA_PLATFORM="wayland;xcb"
+        export QT_QPA_PLATFORM=wayland
         export CLUTTER_BACKEND=wayland
         export SDL_VIDEODRIVER=wayland
         export GDK_BACKEND=wayland

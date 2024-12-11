@@ -24,41 +24,58 @@ window#waybar {
 }
 window#waybar * {
     border: none;
-    font-family: Hack, Font Awesome;
+    font-family: Iosevka, Font Awesome;
     font-size: 14px;
-    min-height: 0;
+    min-height: 0px;
 }
 
 #workspaces button {
     border-radius: 0px;
-    padding: 0 8px;
-    background-color: unset;
+    padding: 4px 4px;
     color: @white;
+    border-top: 2px solid transparent;
 }
+/* NOTE: Focused workspace; Unfocused screen */
 #workspaces button.visible {
-    border-bottom: 2px solid transparent;
-    border-top: 2px solid @white;
-    background-color: @gray;
-    color: @black;
+    color: @primary;
+    font-weight: 900;
 }
+/* NOTE: Focused workspace; Focused screen */
 #workspaces button.focused {
-    border-bottom: 2px solid transparent;
-    border-top: 2px solid @white;
-    background-color: @primary;
-    color: @white;
+    color: @success;
+    font-weight: 900;
+    border-top: 2px solid @success;
+}
+/* Focused workspace; Focused screen; No window */
+#workspaces button.empty {
+    color: @warning;
+    font-weight: 900;
+    border-top: 2px solid @warning;
 }
 #workspaces button.urgent {
-    background-color: @danger;
-    color: @white;
+    color: @danger;
+}
+#workspaces button.persistent {
+    /* FIXME: check for this state */
+    color: magenta;
+}
+#workspaces button.hidden {
+    /* FIXME: check for this state */
+    color: blue;
+}
+
+#mode,
+#window,
+privacy
+{
+    padding: 0 8px;
+    margin: 0 2px;
 }
 
 #mode {
-    background-color: @danger;
-    color: @white;
-    padding: 0 6px;
+    color: @danger;
 }
 
-#window,
 #backlight,
 #battery,
 #clock,
@@ -77,8 +94,12 @@ window#waybar * {
     min-width: 20px;
 }
 
-#window {
-    color: @gray;
+#submap {
+    color: @danger;
+}
+
+#tray {
+    background-color: @black;
 }
 #network {
     color: @success;
@@ -86,11 +107,12 @@ window#waybar * {
 #clock {
     color: @primary-light;
 }
-#tray {
-    background-color: @black;
+#privacy {
+    color: @success;
 }
-
-#pulseaudio.muted,
+#pulseaudio.muted {
+    color: @danger;
+}
 #network.disconnected {
     color: @danger;
 }

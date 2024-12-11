@@ -8,6 +8,8 @@ fi
 # BASE CONF
 
 setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY_TIME
+
 export SAVEHIST=50000
 export HISTSIZE=$SAVEHIST
 export HISTFILE=~/.zsh_history
@@ -54,6 +56,9 @@ fi
 # POWERLEVEL10K
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# GPG AGENT as SSH AGENT
+
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi

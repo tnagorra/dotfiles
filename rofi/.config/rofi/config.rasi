@@ -2,7 +2,7 @@ configuration {
 	modi: "window,run,drun";
 	width: 50;
 	lines: 10;
-	font: "Hack 12";
+	font: "Iosevka 16";
 	padding: 10;
 	show-icons: true;
 	terminal: "kitty";

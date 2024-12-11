@@ -6,22 +6,25 @@
         "sway/workspaces",
         "sway/mode",
         "sway/window",
+        "privacy"
     ],
     "modules-center": [
-        "clock",
-    ],
-    "modules-right": [
-        "network",
-        "temperature",
         "cpu",
+        "cpu#freq",
+        "temperature",
         "disk",
         "memory",
-        "battery",
+        "battery"
+    ],
+    "modules-right": [
+        // "bluetooth",
+        "network",
+        "clock",
         "backlight",
         "pulseaudio",
         "idle_inhibitor",
         "custom/mako",
-        "tray",
+        "tray"
     ],
     "custom/mako": {
         "interval": 1,
@@ -34,27 +37,35 @@
             "activated": "",
             "deactivated": ""
         }
-        // "on-click": "dnd.py; pkill -SIGRTMIN+29 waybar",
-        // "signal": 29,
-    },
-    // "wlr/taskbar": {
-    //     "on-click": "activate"
-    // },
-    "sway/window": {
-        "icon": false,
-    },
-    "sway/workspaces": {
-        "disable-scroll": true,
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>",
     },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
-            "deactivated": "",
-        },
+            "deactivated": ""
+        }
+    },
+    "privacy": {
+        "icon-spacing": 10,
+        "icon-size": 14,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 14
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 14
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 14
+            }
+        ]
     },
     "network": {
         // "interface": "auto", // (Optional)
@@ -62,8 +73,18 @@
         "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
         "format-linked": "No IP address",
         "format-disconnected": "No network",
-        "interval": 1,
+        "interval": 1
     },
+    /*
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": " {num_connections} connected",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+    */
     "pulseaudio": {
         "scroll-step": 2,
         "format": "{icon} {volume}",
@@ -73,22 +94,28 @@
             "headphones": "",
             "handsfree": "",
             "headset": "",
-            "default": ["", "", "", ""],
+            "default": ["", "", "", ""]
         },
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol"
     },
     "temperature": {
-        "format": "{icon} {temperatureC}",
+        "format": "{icon} {temperatureC}°",
         "format-icons": ["", "", "", "", ""],
-        "critical-threshold": 80,
+        "critical-threshold": 80
     },
     "cpu": {
-        "format": " {usage}",
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7} {usage}%",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+        "interval": 5,
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85,
-        },
+            "critical": 85
+        }
+    },
+    "cpu#freq": {
+        "format": " {avg_frequency}",
+        "interval": 5
     },
     "disk": {
         "format": " {percentage_used}",
@@ -97,39 +124,37 @@
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85,
-        },
+            "critical": 85
+        }
     },
     "backlight": {
-        "format": " {percent}",
+        "format": " {percent}"
     },
     "memory": {
         "format": " {}",
         "states": {
             "good": 10,
             "warning": 70,
-            "critical": 85,
-        },
+            "critical": 85
+        }
     },
     "clock": {
         "tooltip-format": "{:%Y-%m-%d | %H:%M}",
         "format-alt": "{:%Y-%m-%d %H:%M}",
-        "format": "{:%h %d %a %H:%M}",
+        "format": "{:%h %d %a %H:%M}"
     },
     "battery": {
         "states": {
             "good": 95,
             "warning": 30,
-            "critical": 25,
+            "critical": 25
         },
         "format": "{icon} {capacity}% {time}",
-        // "format-alt": "{icon} {time}",
         "format-time": "{H}h{M}m",
-        "format-icons": ["", "", "", "", ""],
+        "format-icons": ["", "", "", "", ""]
     },
     "tray": {
-        // "icon-size": 21,
-        "spacing": 10,
-    },
+        "spacing": 10
+    }
 }
 // vim: set ft=jsonc:
