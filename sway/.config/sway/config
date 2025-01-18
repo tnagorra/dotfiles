@@ -224,17 +224,6 @@ set $wallpaper ~/Pictures/Wallpapers/*
 output * background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill
 bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -maxdepth 1 -type f | shuf -n 1` fill"
 
-# Enable tap on click for touchpad
-input "2:7:SynPS/2_Synaptics_TouchPad" {
-    tap enabled
-}
-
-# Change caps-lock to ESC
-input "type:keyboard" {
-    xkb_layout us
-    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
-}
-
 # Start notification daemon
 exec --no-startup-id mako
 bindsym $mod+period exec makoctl dismiss -a

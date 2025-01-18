@@ -5,3 +5,24 @@ exec --no-startup-id swaymsg input "1267:127:ELAN_Touchscreen" events disabled
 
 # Configure outputs
 output eDP-1 pos 0 0
+
+# Enable tap on click for touchpad
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled
+}
+
+# Ideapad Keyboard
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+}
+
+# Lego Keyboard
+input "22634:100:WM64_WM64_Keyboard" {
+    xkb_layout us
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+}
+
+# TODO: Add Thinkpad Keyboard
+
+# TODO: Add Durgod
