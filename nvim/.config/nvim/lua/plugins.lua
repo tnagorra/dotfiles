@@ -1,30 +1,17 @@
-local fn = vim.fn
-local g = vim.g
-
 return {
     {
-        -- Manage external dependencies
+        -- Manage external deps
         'williamboman/mason.nvim',
-        build = ':MasonUpdate', -- :MasonUpdate updates registry contents
+        build = ':MasonUpdate',
         config = function()
             require('plugin-configs/_mason')
         end,
     },
     {
-        -- Manage external dependencies for lsp
+        -- Manage external deps for lsp
         'williamboman/mason-lspconfig.nvim',
         config = function()
             require('plugin-configs/_mason-lspconfig')
-        end,
-        dependencies = {
-            'williamboman/mason.nvim',
-        }
-    },
-    {
-        'mfussenegger/nvim-lint',
-        enabled = false,
-        config = function()
-            require('plugin-configs/_nvim-lint')
         end,
     },
     {
@@ -42,10 +29,6 @@ return {
         end,
     },
     {
-        -- warp directory
-        'tnagorra/wd-nvim'
-    },
-    {
         -- fuzzy search
         'nvim-telescope/telescope.nvim',
         dependencies = {
@@ -57,10 +40,17 @@ return {
         end,
     },
     {
-        -- git
+        -- git signs
         'lewis6991/gitsigns.nvim',
         config = function()
             require('plugin-configs/_gitsigns')
+        end,
+    },
+    {
+        -- git conflicts
+        'akinsho/git-conflict.nvim',
+        config = function()
+            require('plugin-configs/_git-conflict')
         end,
     },
     {
@@ -77,6 +67,7 @@ return {
             require('plugin-configs/_lspconfig')
         end,
         dependencies = {
+            'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
         },
     },
@@ -88,65 +79,32 @@ return {
         end,
     },
     {
-        "OXY2DEV/markview.nvim",
-        lazy = false,
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
-        },
-        config = function()
-          local presets = require("markview.presets").headings;
-          require("markview").setup({
-              initial_state = false,
-              headings = {
-                enable = true,
-                heading_1 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '# ',
-                },
-                heading_2 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '## ',
-                },
-                heading_3 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '### ',
-                },
-                heading_4 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '#### ',
-                },
-                heading_5 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '##### ',
-                },
-                heading_6 = {
-                  style = 'label',
-                  align = 'left',
-                  sign = '>',
-                  icon = '###### ',
-                }
-              },
-              list_items = {
-                indent_size = 4,
-                shift_width = 2,
-              }
-            });
-        end,
+        -- support reading jupyter notebook
+        'goerz/jupytext.nvim',
+        version = '0.2.0',
+        opts = {},
     },
     {
         -- misc
         'AndrewRadev/qftools.vim'
+    },
+    {
+        -- indent lines
+        "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require('plugin-configs/_hlchunk')
+        end
+    },
+    {
+        -- folds
+        'kevinhwang91/nvim-ufo',
+        dependencies = {
+            'kevinhwang91/promise-async',
+        },
+        config = function()
+            require('plugin-configs/_nvim-ufo')
+        end,
     },
     {
         -- colorscheme
@@ -156,45 +114,7 @@ return {
         end,
     },
     {
-        -- show indent lines
-        'lukas-reineke/indent-blankline.nvim',
-        enabled=false,
-        config = function()
-            require('plugin-configs/_indent-blankline')
-        end,
-    },
-    {
-        -- statusline
-        'nvim-lualine/lualine.nvim',
-        enabled=false,
-        config = function()
-            require('plugin-configs/_lualine')
-        end,
-        dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
-    },
-    {
-        -- spell check
-        'kamykn/spelunker.vim',
-        enabled=false,
-        config = function()
-            require('plugin-configs/_spelunker')
-        end,
-    },
-    {
+        -- gnupg support
         'jamessan/vim-gnupg',
-    },
-    {
-        'glacambre/firenvim',
-
-        -- Lazy load firenvim
-        -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
-        lazy = not g.started_by_firenvim,
-        build = function()
-            fn["firenvim#install"](0)
-        end,
-        enabled=false,
-        config = function()
-            require('plugin-configs/_firenvim')
-        end,
     },
 }

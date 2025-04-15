@@ -5,10 +5,10 @@ set $mod Mod4
 set $resize resize
 set $exit exit
 
-set $primary_font Hack
+set $primary_font RecMonoCasual Nerd Font
 set $title_font_size 10
 
-set $bar_font Anonymous Pro
+set $bar_font RecMonoCasual Nerd Font
 set $bar_icon_font LineAwesome
 set $bar_font_size 12
 

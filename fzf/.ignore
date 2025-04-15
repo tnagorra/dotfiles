@@ -1,23 +1,15 @@
 .expo
 .cache
-.config
 .fzf
 .git
-.mozilla
 .mypy_cache
 .next
 .node-gyp
 .npm
 .pyenv
 .pytest_cache
-.thunderbird
 .venv
-.zinit
 __pycache__
 coverage
 media
 node_modules
-# ios
-# android
-*.sql
-server

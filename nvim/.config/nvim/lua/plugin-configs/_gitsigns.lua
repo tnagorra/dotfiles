@@ -1,5 +1,7 @@
 require('gitsigns').setup({
-    signcolumn = true,
-    numhl = true,
+    -- Add blame annotation at end of current line
     current_line_blame = true,
+    current_line_blame_opts = {
+        virt_text_pos = "right_align"
+    },
 })

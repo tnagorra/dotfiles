@@ -1,30 +1,51 @@
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.configs').setup({
     ensure_installed = {
+        -- linux
         'bash',
-        'css',
-        'dockerfile',
+        'diff',
         'gitattributes',
         'gitcommit',
         'git_config',
         'gitignore',
         'git_rebase',
-        'graphql',
+        'gpg',
+        'ssh_config',
+
+        -- data
+        'csv',
+        'yaml',
+        'markdown',
+        'tsv',
+        'json',
+
+        -- frontend
+        'css',
         'html',
         'javascript',
-        'json',
-        -- 'lua',
-        'markdown',
-        'python',
-        'regex',
-        'sql',
         'tsx',
         'typescript',
-        'yaml',
+
+        -- devops
+        'dockerfile',
+        'helm',
+
+        -- backend
+        'lua',
+        'python',
+        'sql',
+
+        -- misc
+        'regex',
+        'graphql',
     },
     highlight = {
-        enable = false,
+        enable = true,
+        -- disable = { "typescript", "javascript" },
     },
     indent = {
-        enable = false
+        enable = true,
+    },
+    incremental_selection = {
+        enabled = false,
     }
-}
+})

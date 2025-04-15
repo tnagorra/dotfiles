@@ -26,9 +26,12 @@ alias ls="ls --color"
 alias ssh="TERM=screen ssh"
 
 JOURNAL_DIR=~/Logseq/journals
-
 function journal(){
     $EDITOR $JOURNAL_DIR/$(date +%Y_%m_%d -d "$*").md
 }
 
 alias k=kubectl
+
+function tsh_login() {
+    gopass process -- "$HOME/test.tcl" | expect -
+}

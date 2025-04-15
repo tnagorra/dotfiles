@@ -1,69 +1,58 @@
-local g = vim.g
-local opt = vim.opt
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+local HOME = os.getenv('HOME') .. '/'
 
-local home = os.getenv('HOME') .. '/'
+vim.opt.termguicolors = true
+vim.opt.background = 'light'
+vim.opt.lazyredraw = true
+vim.opt.hidden = true
 
-opt.termguicolors = true
-opt.background = 'light'
-opt.lazyredraw = true
-opt.hidden = true
-opt.foldlevel = 99
-opt.foldmethod = 'indent'
-opt.scroll = 10
-opt.scrolloff = 5
-opt.scrolljump = 5
-opt.mouse = 'a'
-opt.ignorecase = true
-opt.smartcase = true
-opt.splitbelow = true
-opt.splitright = true
-opt.undofile = true
-opt.backup = true
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.expandtab = true
-opt.smartindent = true
-opt.wrap = false
-opt.breakindent = true
-opt.showbreak = '⭑'
-opt.pumblend = 20
-opt.showmatch = true
-opt.number = true
-opt.shortmess = 'filnxtToOrm'
-opt.list = true
-opt.listchars = 'tab:› ,trail:•,extends:…,nbsp:.'
-opt.wildmode = 'list:longest'
-opt.wildignore = '*/.git,*/coverage,*/__pycache__'
-opt.wildignorecase = true
--- opt.laststatus = 3
-opt.statusline = ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L'
-opt.rulerformat = '%30(%=:b%n%y%m%r%w %l,%c%V %P%)'
-opt.fillchars = 'vert: ,fold: '
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+-- vim.opt.foldmethod = 'indent'
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
-opt.directory = home .. '.local/share/nvim/swap,/tmp'
-opt.undodir = home .. '.local/share/nvim/undo,/tmp'
-opt.backupdir = home .. '.local/share/nvim/backup,/tmp'
+vim.opt.scroll = 10
+vim.opt.scrolloff = 5
+vim.opt.scrolljump = 5
+vim.opt.mouse = 'a'
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.undofile = true
+vim.opt.backup = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.wrap = false
+vim.opt.breakindent = true
+vim.opt.showbreak = '⭑'
+vim.opt.pumblend = 30
+vim.opt.showmatch = true
+vim.opt.number = true
+vim.opt.shortmess = 'filnxtToOrm'
+vim.opt.list = true
+vim.opt.listchars = 'tab:› ,trail:•,extends:…,nbsp:.'
+vim.opt.wildmode = 'list:longest'
+vim.opt.wildignore = '*/.git,*/coverage,*/__pycache__'
+vim.opt.wildignorecase = true
+vim.opt.statusline = ' %<%f' .. '%w%h%m%r' .. '» %{&ff}/%Y ' .. '%=%l,%c%V %3p%% %L'
+vim.opt.rulerformat = '%30(%=:b%n%y%m%r%w %l,%c%V %P%)'
+vim.opt.fillchars = 'vert: ,fold: '
 
--- opt.spelloptions = 'camel'
--- opt.spellcapcheck = ''
--- opt.spell = true
+vim.opt.directory = HOME .. '.local/share/nvim/swap,/tmp'
+vim.opt.undodir = HOME .. '.local/share/nvim/undo,/tmp'
+vim.opt.backupdir = HOME .. '.local/share/nvim/backup,/tmp'
 
-g.mapleader = ','
-g.maplocalleader = '\\'
+vim.o.completeopt = 'menu,noinsert,popup,fuzzy'
+-- FIXME: We cannot use this because it makes telescope UI unbearable
+-- vim.o.winborder = 'rounded'
+
+vim.g.mapleader = ','
+vim.g.maplocalleader = '\\'
 
 -- Use filetype.lua instead of filetype.vim
-g.do_filetype_lua = 1
-g.did_load_filetypes = 0
-
-autocmd('FileType', {
-    group = augroup('MarkdownTabs', {}),
-    pattern = 'markdown',
-    callback = function()
-        opt.tabstop = 2
-        opt.shiftwidth = 2
-        opt.softtabstop = 2
-    end,
-})
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0

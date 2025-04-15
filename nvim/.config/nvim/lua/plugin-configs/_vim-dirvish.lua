@@ -1,19 +1,22 @@
-local g = vim.g
-local map = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-g.dirvish_mode = 1
-autocmd('FileType', {
-    group = augroup('UserDirvishSort', {}),
+-- Enable dirvish
+vim.g.dirvish_mode = 1
+
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'Dirvish: Sort files',
+    group = vim.api.nvim_create_augroup('UserDirvishSort', {}),
     pattern = 'dirvish',
     command = 'silent sort "^.*[\\/]"'
 })
-autocmd('FileType', {
-    group = augroup('UserDirvish', {}),
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'Dirvish: Unmap shortcuts',
+    group = vim.api.nvim_create_augroup('UserDirvish', {}),
     pattern = 'dirvish',
     command = 'silent! unmap <buffer> <C-p>'
 })
 
-map('n', '<leader>e', ':call dirvish#open(getcwd())<cr>')
-map('n', '<leader>E', ':Dirvish %<cr>')
+vim.keymap.set('n', '<leader>e', ':call dirvish#open(getcwd())<cr>')
+vim.keymap.set('n', '<leader>E', ':Dirvish %<cr>')

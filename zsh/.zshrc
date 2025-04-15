@@ -14,7 +14,6 @@ export SAVEHIST=50000
 export HISTSIZE=$SAVEHIST
 export HISTFILE=~/.zsh_history
 export EDITOR='nvim'
-# export TERM=xterm-256color
 export TERM=xterm-kitty
 export GPG_TTY=$TTY
 
@@ -33,8 +32,7 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zuxfoucault/colored-man-pages_mod
 
-  zgenom ohmyzsh plugins/wd
-
+  # zgenom ohmyzsh plugins/wd
   # trapd00r/LS_COLORS
 
   zgenom save
@@ -43,6 +41,14 @@ fi
 # FZF
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Atuin
+
+if type "atuin" > /dev/null; then eval "$(atuin init zsh --disable-up-arrow)"; fi
+
+# Zoxide
+
+eval "$(zoxide init zsh)"
 
 # ALIASES
 
@@ -54,6 +60,7 @@ fi
 [ -f ~/.applications.zsh ] && source ~/.applications.zsh
 
 # POWERLEVEL10K
+
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # GPG AGENT as SSH AGENT

@@ -1,130 +1,115 @@
 local lspconfig = require('lspconfig')
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-local map = vim.keymap.set
-local lsp = vim.lsp
-local inspect = vim.inspect
-local bo = vim.bo
-local diagnostic = vim.diagnostic
-local fn = vim.fn
-local util = require('lspconfig/util')
-local env = vim.env
+local mason_registry = require('mason-registry')
 
-
-local function get_python_path(workspace)
-    -- Use activated virtualenv.
-    if env.VIRTUAL_ENV then
-        return util.path.join(env.VIRTUAL_ENV, 'bin', 'python')
-    end
-
-    -- Find and use virtualenv via poetry in workspace directory.
-    local match = fn.glob(util.path.join(workspace, 'poetry.lock'))
-    if match ~= '' then
-        local venv = fn.trim(fn.system('poetry env info -p'))
-        return util.path.join(venv, 'bin', 'python')
-    end
-
-    -- Fallback to system Python.
-    return exepath('python3') or exepath('python') or 'python'
-end
-
-lspconfig.pyright.setup {
-    before_init = function(_, config)
-        config.settings.python.pythonPath = get_python_path(config.root_dir)
-    end
-}
-lspconfig.pylsp.setup {
-    settings = {
-        pylsp = {
-            configurationSources = {"flake8"},
-            plugins = {
-                flake8 = {
-                    enabled = true,
-                }
-            }
+lspconfig.ruff.setup({
+    init_options = {
+        settings = {
+            lint = {
+                preview = true
+            },
         }
     }
+})
+lspconfig.basedpyright.setup {
+    settings = {
+        basedpyright = {
+            -- Disable pyright import organizer to use ruff's import organizer
+            disableOrganizeImports = true,
+        },
+        python = {
+            analysis = {
+                -- Ignore all files for analysis to use ruff's analysis
+                ignore = { '*' },
+
+                -- For typings
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
 }
-lspconfig.denols.setup {
-  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-}
-local mason_registry = require('mason-registry')
-local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
 lspconfig.ts_ls.setup {
-  root_dir = lspconfig.util.root_pattern("package.json"),
-  single_file_support = false,
-  init_options = {
-      plugins = {
-          {
-              name = '@vue/typescript-plugin',
-              location = vue_language_server_path,
-              languages = { 'vue' },
-          },
-      },
-  },
-  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    init_options = {
+        plugins = {
+            {
+                name = '@vue/typescript-plugin',
+                location = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server',
+                languages = { 'vue' },
+            },
+        },
+    },
+    filetypes = { 'typescript', 'javascript', 'vue', 'javascriptreact', 'typescriptreact' },
 }
-lspconfig.graphql.setup {}
-lspconfig.bashls.setup {}
-lspconfig.docker_compose_language_service.setup {}
-lspconfig.dockerls.setup {}
-lspconfig.eslint.setup {}
-lspconfig.html.setup {}
 lspconfig.cssmodules_ls.setup {
     init_options = {
         camelCase = true
     }
 }
+lspconfig.bashls.setup {}
+-- lspconfig.denols.setup {}
+lspconfig.docker_compose_language_service.setup {}
+lspconfig.dockerls.setup {}
+lspconfig.eslint.setup {}
+lspconfig.gh_actions_ls.setup {}
+lspconfig.graphql.setup {}
+lspconfig.helm_ls.setup {}
+lspconfig.html.setup {}
 lspconfig.jsonls.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.sqlls.setup {}
-lspconfig.stylelint_lsp.setup {
-    filetypes = {
-        'css', 'less', 'scss', 'sugarss', 'wxss',
-    },
-}
-
-lspconfig.yamlls.setup {}
+lspconfig.stylelint_lsp.setup {}
 lspconfig.volar.setup {}
+lspconfig.yamlls.setup {}
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-map('n', '[d', diagnostic.goto_prev)
-map('n', ']d', diagnostic.goto_next)
-map('n', '<leader>ld', diagnostic.open_float)
-map('n', '<leader>ll', diagnostic.setloclist)
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-autocmd('LspAttach', {
-    group = augroup('UserLspConfig', {}),
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP: Create local key mappings',
+    group = vim.api.nvim_create_augroup('UserLspMappings', {}),
     callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
         -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
-
-        map('n', 'gD', lsp.buf.declaration, opts)
-        map('n', 'gd', lsp.buf.definition, opts)
-        map('n', 'gt', lsp.buf.type_definition, opts)
-        map('n', 'gi', lsp.buf.implementation, opts)
-        map('n', 'gr', lsp.buf.references, opts)
-
-        map('n', 'K', lsp.buf.hover, opts)
-        map('n', '<C-k>', lsp.buf.signature_help, opts)
-
-        map('n', '<space>wa', lsp.buf.add_workspace_folder, opts)
-        map('n', '<space>wr', lsp.buf.remove_workspace_folder, opts)
-        map('n', '<space>wl', function()
-            print(inspect(lsp.buf.list_workspace_folders()))
-        end, opts)
-
-        map('n', '<leader>lr', lsp.buf.rename, opts)
-        map({ 'n', 'v' }, '<leader>lc', lsp.buf.code_action, opts)
-        map('n', '<leader>lf', function()
-            lsp.buf.format { async = true }
+        -- Set mappings
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts) -- # default behavior
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<leader>lc', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<leader>lf', function() -- # default is gq
+            vim.lsp.buf.format { async = true }
         end, opts)
     end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    desc = 'LSP: Disable hover capability from ruff',
+    group = vim.api.nvim_create_augroup('UserLspRuffConfig', { clear = true }),
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client ~= nil and client.name == 'ruff' then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP: Enable auto completion',
+    group = vim.api.nvim_create_augroup('UserLspAutoCompletion', {}),
+    callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client ~= nil and client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end,
+})
+
+-- Add single border around floating window
+local orig_open_floating_preview = vim.lsp.util.open_floating_preview
+vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "single"
+    return orig_open_floating_preview(contents, syntax, opts, ...)
+end
