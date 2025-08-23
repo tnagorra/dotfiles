@@ -1,9 +1,10 @@
+// vim: ft=css
 configuration {
 	modi: "window,run,drun";
 	width: 50;
 	lines: 10;
-	font: "RecMonoCasual Nerd Font 14";
-	padding: 10;
+	font: "Iosevka Nerd Font 14";
+	padding: 12;
 	show-icons: true;
 	terminal: "kitty";
 	sidebar-mode: false;

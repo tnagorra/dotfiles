@@ -29,7 +29,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.breakindent = true
 vim.opt.showbreak = '⭑'
-vim.opt.pumblend = 30
+vim.opt.pumblend = 20
 vim.opt.showmatch = true
 vim.opt.number = true
 vim.opt.shortmess = 'filnxtToOrm'
@@ -46,7 +46,7 @@ vim.opt.directory = HOME .. '.local/share/nvim/swap,/tmp'
 vim.opt.undodir = HOME .. '.local/share/nvim/undo,/tmp'
 vim.opt.backupdir = HOME .. '.local/share/nvim/backup,/tmp'
 
-vim.o.completeopt = 'menu,noinsert,popup,fuzzy'
+vim.o.completeopt = 'menu,menuone,noinsert,popup,fuzzy,noselect'
 -- FIXME: We cannot use this because it makes telescope UI unbearable
 -- vim.o.winborder = 'rounded'
 

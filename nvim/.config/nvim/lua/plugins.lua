@@ -1,6 +1,6 @@
 return {
     {
-        -- Manage external deps
+        -- external deps management
         'williamboman/mason.nvim',
         build = ':MasonUpdate',
         config = function()
@@ -8,17 +8,11 @@ return {
         end,
     },
     {
-        -- Manage external deps for lsp
+        -- external deps for lsp
         'williamboman/mason-lspconfig.nvim',
+        after = { "mason.nvim", "nvim-lspconfig" },
         config = function()
             require('plugin-configs/_mason-lspconfig')
-        end,
-    },
-    {
-        -- file manager
-        'justinmk/vim-dirvish',
-        config = function()
-            require('plugin-configs/_vim-dirvish')
         end,
     },
     {
@@ -26,6 +20,13 @@ return {
         'lambdalisue/suda.vim',
         config = function()
             require('plugin-configs/_suda')
+        end,
+    },
+    {
+        -- file manager
+        'justinmk/vim-dirvish',
+        config = function()
+            require('plugin-configs/_vim-dirvish')
         end,
     },
     {
@@ -37,6 +38,18 @@ return {
         },
         config = function()
             require('plugin-configs/_telescope')
+        end,
+    },
+    {
+        -- completion
+        'hrsh7th/nvim-cmp',
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+        },
+        config = function()
+            require('plugin-configs/_nvim-cmp')
         end,
     },
     {
@@ -54,7 +67,7 @@ return {
         end,
     },
     {
-        -- multiple language support
+        -- languages support
         'sheerun/vim-polyglot',
         init = function()
             require('plugin-configs/_polyglot')
@@ -66,10 +79,6 @@ return {
         config = function()
             require('plugin-configs/_lspconfig')
         end,
-        dependencies = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-        },
     },
     {
         -- treesitter support
@@ -79,22 +88,8 @@ return {
         end,
     },
     {
-        -- support reading jupyter notebook
-        'goerz/jupytext.nvim',
-        version = '0.2.0',
-        opts = {},
-    },
-    {
-        -- misc
-        'AndrewRadev/qftools.vim'
-    },
-    {
-        -- indent lines
-        "shellRaining/hlchunk.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require('plugin-configs/_hlchunk')
-        end
+        -- editable quickfix list
+        'itchyny/vim-qfedit',
     },
     {
         -- folds
@@ -114,7 +109,20 @@ return {
         end,
     },
     {
-        -- gnupg support
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('plugin-configs/_lualine')
+        end,
+    },
+    {
+        -- gnupg edit support
         'jamessan/vim-gnupg',
+    },
+    {
+        -- jupyter notebook edit support
+        'goerz/jupytext.nvim',
+        version = '0.2.0',
+        opts = {},
     },
 }

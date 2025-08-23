@@ -29,6 +29,7 @@ require('ufo').setup({
     open_fold_hl_timeout = 0,
     fold_virt_text_handler = handler,
     provider_selector = function(bufnr, filetype, buftype)
-        return {'treesitter', 'indent'}
+        -- return {'treesitter', 'indent'}
+        return {'indent'}
     end
 })

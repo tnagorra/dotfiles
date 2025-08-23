@@ -7,5 +7,5 @@ end, { silent = true })
 
 vim.keymap.set('n', '<leader>F', function()
     require("telescope").extensions.live_grep_args
-        .live_grep_args({ default_text= "--hidden " })
+        .live_grep_args({ default_text= "--hidden '" })
 end, { silent = true })

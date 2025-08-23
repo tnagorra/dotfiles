@@ -31,6 +31,7 @@ if ! zgenom saved; then
   zgenom load zsh-users/zsh-completions
   zgenom load zsh-users/zsh-syntax-highlighting
   zgenom load zuxfoucault/colored-man-pages_mod
+  zgenom load junegunn/fzf-git.sh
 
   # zgenom ohmyzsh plugins/wd
   # trapd00r/LS_COLORS
@@ -69,3 +70,5 @@ unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
+
+source /usr/share/nvm/init-nvm.sh

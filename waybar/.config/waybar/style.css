@@ -24,8 +24,8 @@ window#waybar {
 }
 window#waybar * {
     border: none;
-    font-family: RecMonoCasual Nerd Font, Font Awesome;
-    font-size: 14px;
+    font-family: Iosevka Nerd Font, Font Awesome;
+    font-size: 15px;
     min-height: 0px;
 }
 

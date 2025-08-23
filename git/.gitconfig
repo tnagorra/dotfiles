@@ -1,9 +1,15 @@
 [core]
 	editor = nvim
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only --features=interactive
 [difftool]
     prompt = false
 [branch]
 	sort = -committerdate
+[tag]
+	verbose = true
+	gpgsign = true
 [commit]
 	verbose = true
 	gpgsign = true
@@ -37,3 +43,20 @@
 	textconv = gpg --no-tty --decrypt
 [safe]
 	directory = /code
+[alias]
+    identify = "!git branch --merged $1 | grep -Ev '(^\\*|^\\+|master|main|develop|release|release-*|deploy|deploy-*)' #"
+    cleanup = "!git branch --merged $1 | grep -Ev '(^\\*|^\\+|master|main|develop|release|release-*|deploy|deploy-*)' | xargs -n 1 -r git branch -d #"
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+    line-numbers = true
+    features = decorations
+    true-color = always
+    wrap-max-lines = 200
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    hunk-header-style = file line-number syntax
+    file-removed-label = 🟥
+    file-modified-label = 🟥🟩
+    file-added-label = 🟩

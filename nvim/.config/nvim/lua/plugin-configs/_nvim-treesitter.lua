@@ -36,6 +36,7 @@ require('nvim-treesitter.configs').setup({
 
         -- misc
         'regex',
+        'comment',
         'graphql',
     },
     highlight = {

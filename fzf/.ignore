@@ -1,4 +1,5 @@
 .expo
+.pnpm-store
 .cache
 .fzf
 .git

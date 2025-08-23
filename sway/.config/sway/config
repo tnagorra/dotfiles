@@ -168,10 +168,11 @@ mode $exit_icon {
 bindsym $mod+Shift+e mode $exit_icon
 
 bindsym $mod+d exec "rofi -show drun"
+bindsym $mod+Shift+d exec "rofi -show window"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-set $primary_font RecMonoCasual Nerd Font
+set $primary_font Iosevka Nerd Font
 set $primary_font_size 10
 font pango:$primary_font $primary_font_size
 
@@ -232,7 +233,8 @@ bindsym $mod+Shift+w exec "swaymsg output '*' background `find $wallpaper -maxde
 
 # Start notification daemon
 exec --no-startup-id mako
-bindsym $mod+period exec makoctl dismiss -a
+bindsym $mod+n exec makoctl dismiss
+bindsym $mod+Shift+n exec makoctl restore
 
 # Clipboard manager
 exec --no-startup-id wl-paste -t text --watch clipman store
@@ -250,19 +252,33 @@ exec --no-startup-id swayidle \
 # bindsym $mod+Ctrl+o exec paplay "$sound_dir/dialog-warning.oga" & wf-recorder -g $(slurp) -f $HOME/wf_$(date +'%Y-%m-%d-%H%M%S.mp4')
 # bindsym $mod+Shift+o exec paplay "$sound_dir/complete.oga" & pkill wf-recorder --signal SIGINT;
 
-
 # Enable corner radius
-corner_radius 8
+# corner_radius 8
 
 # Enable blur
 # FIXME: only enable blur on floating windows
 # shadows enable
-for_window [floating] shadows enable
-shadow_blur_radius 24
-shadow_color "#20208050"
+# for_window [floating] shadows enable
+# shadow_blur_radius 24
+# shadow_color "#20208050"
 
 # Include other configurations
 
 include /etc/sway/config.d/*
-
 include ~/.config/sway/config.d/$(hostname)
+
+# Lego Keyboard
+input "22634:100:WM64_WM64" {
+    xkb_layout us
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+}
+input "22634:100:WM64_WM64_Keyboard" {
+    xkb_layout us
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+}
+
+# Durgod Keyboard
+input "12136:130:Hoksi_Technology_DURGOD_Taurus_K320" {
+    xkb_layout us
+    xkb_options ctrl:nocaps,altwin:swap_lalt_lwin
+}

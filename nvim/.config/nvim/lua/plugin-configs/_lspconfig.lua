@@ -1,65 +1,80 @@
-local lspconfig = require('lspconfig')
-local mason_registry = require('mason-registry')
+-- local lspconfig = require('lspconfig')
+-- local mason_registry = require('mason-registry')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.ruff.setup({
+vim.lsp.config('ruff', {
+    capabilities = capabilities,
     init_options = {
         settings = {
-            lint = {
-                preview = true
+            configurationPreference = "filesystemFirst",
+            fixAll = true,
+            organizeImports = true,
+            showSyntaxErrors = true,
+            logLevel = "debug",
+            codeAction = {
+                disableRuleComment = {
+                    enable = true
+                },
+                fixViolation = {
+                    enable = true
+                }
             },
+            lint = {
+                enable = true,
+                preview = true,
+            },
+            format = {
+                enable = true,
+                preview = true,
+            }
         }
     }
 })
-lspconfig.basedpyright.setup {
+vim.lsp.config('pyright', {
+    capabilities = capabilities,
     settings = {
-        basedpyright = {
+        pyright = {
             -- Disable pyright import organizer to use ruff's import organizer
             disableOrganizeImports = true,
+            useLibraryCodeForTypes = true,
         },
         python = {
             analysis = {
-                -- Ignore all files for analysis to use ruff's analysis
-                ignore = { '*' },
-
-                -- For typings
+                autoImportCompletions = true,
                 autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
             },
         },
     },
-}
-lspconfig.ts_ls.setup {
+})
+vim.lsp.config('ts_ls', {
+    capabilities = capabilities,
     init_options = {
         plugins = {
-            {
-                name = '@vue/typescript-plugin',
-                location = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server',
-                languages = { 'vue' },
-            },
+            -- {
+            --     name = '@vue/typescript-plugin',
+            --     location = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server',
+            --     languages = { 'vue' },
+            -- },
         },
     },
-    filetypes = { 'typescript', 'javascript', 'vue', 'javascriptreact', 'typescriptreact' },
-}
-lspconfig.cssmodules_ls.setup {
+    filetypes = {
+        'typescript',
+        'javascript',
+        -- 'vue',
+        'javascriptreact',
+        'typescriptreact',
+    },
+})
+vim.lsp.config('cssmodules_ls', {
+    capabilities = capabilities,
     init_options = {
         camelCase = true
     }
-}
-lspconfig.bashls.setup {}
--- lspconfig.denols.setup {}
-lspconfig.docker_compose_language_service.setup {}
-lspconfig.dockerls.setup {}
-lspconfig.eslint.setup {}
-lspconfig.gh_actions_ls.setup {}
-lspconfig.graphql.setup {}
-lspconfig.helm_ls.setup {}
-lspconfig.html.setup {}
-lspconfig.jsonls.setup {}
-lspconfig.lua_ls.setup {}
-lspconfig.sqlls.setup {}
-lspconfig.stylelint_lsp.setup {}
-lspconfig.volar.setup {}
-lspconfig.yamlls.setup {}
+})
+vim.lsp.config('harper_ls', {
+    capabilities = capabilities,
+    filetypes = { "markdown" },
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP: Create local key mappings',
@@ -96,12 +111,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-    desc = 'LSP: Enable auto completion',
-    group = vim.api.nvim_create_augroup('UserLspAutoCompletion', {}),
+    desc = 'LSP: Auto completion',
+    group = vim.api.nvim_create_augroup('UserLspCompletions', {}),
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client ~= nil and client:supports_method('textDocument/completion') then
-            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
         end
     end,
 })
